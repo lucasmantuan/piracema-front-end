@@ -1,5 +1,12 @@
+import { CssBaseline } from "@mui/material";
+import { BrowserRouter } from "react-router-dom";
+import { AppRoutes } from "./routes/AppRoutes";
+
 export const App = () => {
     return (
-        <h1>Olá Mundo</h1>
+        <BrowserRouter>
+            <CssBaseline />
+            <AppRoutes />
+        </BrowserRouter>
     );
 };

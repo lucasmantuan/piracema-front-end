@@ -6,3 +6,4 @@ Projeto desenvolvido no Bootcampo Programa de Talentos em Tecnologia da Informa√
 
 - React
 - MUI
+- React Router
