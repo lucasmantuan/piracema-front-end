@@ -1,34 +1,43 @@
-import MenuIcon from "@mui/icons-material/Menu";
-import LightModeIcon from "@mui/icons-material/LightMode";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { AppBar, Box, Drawer, IconButton, Toolbar, Typography, useTheme } from "@mui/material";
+import DarkModeIcon from "@mui/icons-material/DarkModeOutlined";
+import LightModeIcon from "@mui/icons-material/LightModeOutlined";
+import LogoutIcon from "@mui/icons-material/LogoutOutlined";
+import MenuIcon from "@mui/icons-material/MenuOutlined";
+import { AppBar, Box, Drawer, IconButton, List, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { Fragment } from "react";
+import { useMenuContext } from "../contexts/MenuContext";
 import { useThemeContext } from "../contexts/ThemeContext";
+import { MenuItem } from "./MenuItem";
 
-export const Menu = () => {
+export const Menu = ({ children }) => {
     const theme = useTheme();
+    const smDown = useMediaQuery(theme.breakpoints.down("sm"));
     const { toggleTheme } = useThemeContext();
+    const { openMenu, handleOpenMenu, optionsMenu, handleOptionsMenu } = useMenuContext();
 
     return (
         <Fragment>
             <AppBar
-                sx={{
-                    zIndex: theme.zIndex.modal
-                }}>
+                elevation={0}
+                sx={{ zIndex: theme.zIndex.modal }}>
                 <Toolbar
-                    sx={{
-                        height: theme.spacing(6)
-                    }}>
-                    <IconButton
-                        color="inherit">
-                        <MenuIcon />
-                    </IconButton>
+                    sx={{ height: theme.spacing(8) }}>
+                    {smDown
+                        ? <IconButton
+                            color="inherit"
+                            onClick={handleOpenMenu}>
+                            <MenuIcon />
+                        </IconButton>
+                        : ""}
                     <Typography
                         variant="h6"
                         component="div"
                         sx={{ flexGrow: 1 }}>
-                        Projeto Piracema
+                        Deixar Dinâmico...
                     </Typography>
+                    <IconButton
+                        color="inherit" >
+                        <LogoutIcon />
+                    </IconButton>
                     <IconButton
                         color="inherit"
                         onClick={toggleTheme} >
@@ -39,20 +48,35 @@ export const Menu = () => {
                 </Toolbar>
             </AppBar>
             <Drawer
-                open={true}
-                variant="permanent">
+                variant={smDown
+                    ? "temporary"
+                    : "permanent"}
+                open={openMenu}
+                onClose={handleOpenMenu}>
                 <Box
                     height="100%"
-                    width={theme.spacing(24)}
-                    paddingTop={theme.spacing(8)}>
-                    Menu
+                    width={theme.spacing(26)}
+                    paddingTop={theme.spacing(10)}>
+                    <List
+                        component="nav">
+                        {optionsMenu.map((option) => (<MenuItem
+                            key={option.id}
+                            icon={option.icon}
+                            path={option.path}
+                            label={option.label}
+                            onClick={smDown
+                                ? handleOpenMenu
+                                : null} />))}
+                    </List>
                 </Box>
             </Drawer>
             <Box
                 height="100vh"
-                marginLeft={theme.spacing(24)}
+                marginLeft={smDown
+                    ? 0
+                    : theme.spacing(26)}
                 paddingTop={theme.spacing(8)}>
-                Conteúdo
+                {children}
             </Box>
         </Fragment>
     );
