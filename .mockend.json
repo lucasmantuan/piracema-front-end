@@ -1,16 +1,18 @@
 {
-    "Peixes": {
-        "id": {
-            "int": [
-                1,
-                2
-            ]
+    "Post": {
+        "title": {
+            "string": {}
         },
-        "pittag": {
-            "string": [
-                "AABBCC",
-                "DDEEFF"
-            ]
+        "comments": {
+            "hasMany": "Comment"
+        }
+    },
+    "Comment": {
+        "body": {
+            "string": {}
+        },
+        "post": {
+            "belongsTo": "Post"
         }
     }
 }
