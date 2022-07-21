@@ -1,10 +1,16 @@
 {
     "Peixes": {
+        "id": {
+            "number": [
+                1,
+                2
+            ]
+        },
         "pittag": {
             "string": [
-                "AFDD43",
-                "DD32F4"
-                ]
+                "AABBCC",
+                "DDEEFF"
+            ]
         }
     }
 }
