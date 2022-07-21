@@ -7,6 +7,7 @@
         "@emotion/styled": "^11.9.3",
         "@mui/icons-material": "^5.8.4",
         "@mui/material": "^5.9.1",
+        "axios": "^0.27.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-router-dom": "^6.3.0",
@@ -16,7 +17,8 @@
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "eject": "react-scripts eject"
+        "eject": "react-scripts eject",
+        "mockend": "npx json-server --watch .mockend.json --port 3005"
     },
     "eslintConfig": {
         "extends": [
@@ -37,6 +39,7 @@
     },
     "devDependencies": {
         "eslint": "^8.20.0",
-        "eslint-plugin-react": "^7.30.1"
+        "eslint-plugin-react": "^7.30.1",
+        "json-server": "^0.17.0"
     }
 }

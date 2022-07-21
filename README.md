@@ -4,8 +4,13 @@ Projeto desenvolvido no Bootcampo Programa de Talentos em Tecnologia da Informa√
 
 Para acessar o projeto, visite: https://piracema.vercel.app/
 
-### Tecnologias Utilizadas
+## Tecnologias Utilizadas
+
+### Front-end
 
 - React
 - MUI
 - React Router
+- JSON Server
+- Mockend
+- Axios

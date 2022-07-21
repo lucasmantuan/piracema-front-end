@@ -1,7 +1,9 @@
 import { AddOutlined as AddIcon, SearchOutlined as SearchIcon } from "@mui/icons-material";
-import { Box, Button, InputAdornment, Paper, TextField, useTheme } from "@mui/material";
+import { Box, Button, InputAdornment, Paper, TextField, Typography, useTheme } from "@mui/material";
 
-export const Ferramentas = () => {
+export const Ferramentas = ({
+    valueTextField = "",
+    onChangeTextField }) => {
     const theme = useTheme();
 
     return (
@@ -20,6 +22,8 @@ export const Ferramentas = () => {
                 variant="outlined"
                 size="small"
                 label="Procurar..."
+                value={valueTextField}
+                onChange={(e) => onChangeTextField?.(e.target.value)}
                 InputProps={{
                     endAdornment: <InputAdornment
                         position="end">
@@ -30,7 +34,13 @@ export const Ferramentas = () => {
                 variant="contained"
                 disableElevation
                 endIcon={<AddIcon />}>
-                Novo
+                <Typography
+                    variant="button"
+                    whiteSpace="nowrap"
+                    textOverflow="ellipsis"
+                    overflow="hidden">
+                    Adicionar
+                </Typography>
             </Button>
         </Box>
     );
