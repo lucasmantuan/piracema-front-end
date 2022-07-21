@@ -1,8 +1,10 @@
 {
     "Peixes": {
-        "peixes": {
-            "pittag": "AFDD43",
-            "nomeCientifico": "Australopitecus Fishes"
+        "pittag": {
+            "string": [
+                "AFDD43",
+                "DD32F4"
+                ]
         }
     }
 }
