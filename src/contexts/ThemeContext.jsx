@@ -1,7 +1,6 @@
 import { Box, ThemeProvider } from "@mui/material";
 import { createContext, useCallback, useContext, useMemo, useState } from "react";
-import { Dark } from "../themes/Dark";
-import { Light } from "../themes/Light";
+import { Dark, Light } from "themes";
 
 const ThemeContext = createContext({});
 

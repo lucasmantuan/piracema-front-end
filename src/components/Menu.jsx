@@ -1,12 +1,8 @@
-import DarkModeIcon from "@mui/icons-material/DarkModeOutlined";
-import LightModeIcon from "@mui/icons-material/LightModeOutlined";
-import LogoutIcon from "@mui/icons-material/LogoutOutlined";
-import MenuIcon from "@mui/icons-material/MenuOutlined";
+import { DarkModeOutlined as DarkIcon, LightModeOutlined as LightIcon, LogoutOutlined as LogoutIcon, MenuOutlined as MenuIcon } from "@mui/icons-material";
 import { AppBar, Box, Drawer, IconButton, List, Toolbar, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { MenuItem } from "components";
+import { useMenuContext, useThemeContext } from "contexts";
 import { Fragment } from "react";
-import { useMenuContext } from "../contexts/MenuContext";
-import { useThemeContext } from "../contexts/ThemeContext";
-import { MenuItem } from "./MenuItem";
 
 export const Menu = ({ children }) => {
     const theme = useTheme();
@@ -42,8 +38,8 @@ export const Menu = ({ children }) => {
                         color="inherit"
                         onClick={toggleTheme} >
                         {theme.palette.mode === "light"
-                            ? <DarkModeIcon />
-                            : <LightModeIcon />}
+                            ? <DarkIcon />
+                            : <LightIcon />}
                     </IconButton>
                 </Toolbar>
             </AppBar>

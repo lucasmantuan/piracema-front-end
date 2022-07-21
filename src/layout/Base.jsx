@@ -1,7 +1,7 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/system";
 
-export const Base = ({ children, titulo }) => {
+export const Base = ({ children, barra, titulo }) => {
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -21,9 +21,10 @@ export const Base = ({ children, titulo }) => {
                     {titulo}
                 </Typography>
             </Box>
-            <Box>
-
-            </Box>
+            {(barra &&
+                <Box>
+                    {barra}
+                </Box>)}
             <Box
                 flex={1}>
                 {children}

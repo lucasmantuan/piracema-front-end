@@ -1,4 +1,4 @@
-import { Base } from "../layout/Base";
+import { Base } from "layout";
 
 export const Dashboard = () => {
     return (

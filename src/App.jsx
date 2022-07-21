@@ -1,9 +1,8 @@
 import { CssBaseline } from "@mui/material";
+import { Menu } from "components";
+import { AppThemeProvider, MenuProvider } from "contexts";
 import { BrowserRouter } from "react-router-dom";
-import { Menu } from "./components/Menu";
-import { MenuProvider } from "./contexts/MenuContext";
-import { AppThemeProvider } from "./contexts/ThemeContext";
-import { AppRoutes } from "./routes/AppRoutes";
+import { AppRoutes } from "routes";
 
 export const App = () => {
     return (

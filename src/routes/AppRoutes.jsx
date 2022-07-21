@@ -1,8 +1,8 @@
+import { HomeOutlined as HomeIcon, PhishingOutlined as FishIcon } from "@mui/icons-material";
+import { useMenuContext } from "contexts";
+import { Dashboard, Peixes } from "pages";
 import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
-import { useMenuContext } from "../contexts/MenuContext";
-import { Dashboard } from "../pages/Dashboard";
-import { Peixes } from "../pages/Peixes";
 
 export const AppRoutes = () => {
     const { handleOptionsMenu } = useMenuContext();
@@ -11,13 +11,13 @@ export const AppRoutes = () => {
         handleOptionsMenu([
             {
                 id: 1,
-                icon: "home",
+                icon: <HomeIcon />,
                 label: "Dashboard",
                 path: "/dashboard"
             },
             {
                 id: 2,
-                icon: "home",
+                icon: <FishIcon />,
                 label: "Peixes",
                 path: "/peixes"
             }
