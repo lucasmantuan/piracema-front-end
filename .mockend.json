@@ -1,7 +1,7 @@
 {
     "Peixes": {
         "id": {
-            "number": [
+            "int": [
                 1,
                 2
             ]
