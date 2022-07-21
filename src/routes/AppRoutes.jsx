@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { useMenuContext } from "../contexts/MenuContext";
 import { Dashboard } from "../pages/Dashboard";
+import { Peixes } from "../pages/Peixes";
 
 export const AppRoutes = () => {
     const { handleOptionsMenu } = useMenuContext();
@@ -11,8 +12,14 @@ export const AppRoutes = () => {
             {
                 id: 1,
                 icon: "home",
-                label: "Página Inicial",
-                path: "/"
+                label: "Dashboard",
+                path: "/dashboard"
+            },
+            {
+                id: 2,
+                icon: "home",
+                label: "Peixes",
+                path: "/peixes"
             }
         ]);
     }, []);
@@ -20,12 +27,15 @@ export const AppRoutes = () => {
     return (
         <Routes>
             <Route
-                path="/"
+                path="/dashboard"
                 element={<Dashboard />} />
+            <Route
+                path="/peixes"
+                element={<Peixes />} />
             <Route
                 path="*"
                 element={<Navigate
-                    to="/" />} />
+                    to="/dashboard" />} />
         </Routes>
     );
 };

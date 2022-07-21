@@ -1,9 +1,9 @@
 import { Base } from "../layout/Base";
 
-export const Dashboard = () => {
+export const Peixes = () => {
     return (
         <Base
-            titulo="Dashboard">
+            titulo="Relatório dos Peixes">
             Conteúdo
         </Base>
     );

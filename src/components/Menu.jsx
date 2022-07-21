@@ -32,7 +32,7 @@ export const Menu = ({ children }) => {
                         variant="h6"
                         component="div"
                         sx={{ flexGrow: 1 }}>
-                        Deixar Dinâmico...
+                        Projeto Piracema
                     </Typography>
                     <IconButton
                         color="inherit" >
