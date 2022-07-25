@@ -12,7 +12,7 @@ export const Base = ({ children, barra, titulo }) => {
             flexDirection="column"
             gap={1}>
             <Box
-                padding={2}>
+                margin={2}>
                 <Typography
                     variant={smDown ? "h5" : "h4"}
                     whiteSpace="nowrap"
@@ -22,11 +22,14 @@ export const Base = ({ children, barra, titulo }) => {
                 </Typography>
             </Box>
             {(barra &&
-                <Box>
+                <Box
+                    marginX={2}>
                     {barra}
                 </Box>)}
             <Box
-                flex={1}>
+                marginX={2}
+                flex={1}
+                overflow="auto">
                 {children}
             </Box>
         </Box>

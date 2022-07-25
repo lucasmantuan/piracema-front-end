@@ -1,6 +1,6 @@
 import { HomeOutlined as HomeIcon, PhishingOutlined as FishIcon } from "@mui/icons-material";
 import { useMenuContext } from "contexts";
-import { Dashboard, Peixes } from "pages";
+import { Dashboard, Peixe } from "pages";
 import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -31,7 +31,7 @@ export const AppRoutes = () => {
                 element={<Dashboard />} />
             <Route
                 path="/peixes"
-                element={<Peixes />} />
+                element={<Peixe />} />
             <Route
                 path="*"
                 element={<Navigate

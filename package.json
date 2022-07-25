@@ -18,7 +18,7 @@
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "mockend": "npx json-server --watch .mockend.json --port 3005"
+        "mockend": "npx json-server --watch mockend.json --port 3005"
     },
     "eslintConfig": {
         "extends": [

@@ -1,0 +1,24 @@
+{
+    "peixes": [
+        {
+            "id": 1,
+            "pitTag": "1521FAAD",
+            "nomeCientifico": "Aphanotorulus unicor",
+            "localCaptura": "Lago Itaipu",
+            "dataSoltura": "2022-06-10",
+            "localSoltura": "Canal de Piracema",
+            "amostraDna": "24512-F-SW-KLB",
+            "recaptura": false
+        },
+        {
+            "id": 2,
+            "pitTag": "1521FAAD",
+            "nomeCientifico": "Aphanotorulus unicor",
+            "localCaptura": "Lago Itaipu",
+            "dataSoltura": "2022-06-10",
+            "localSoltura": "Canal de Piracema",
+            "amostraDna": "24512-F-SW-KLB",
+            "recaptura": false
+        }
+    ]
+}

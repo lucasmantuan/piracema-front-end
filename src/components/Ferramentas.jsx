@@ -12,7 +12,6 @@ export const Ferramentas = ({
             elevation={0}
             variant="outlined"
             height={theme.spacing(10)}
-            marginX={2}
             padding={2}
             display="flex"
             alignItems="center"

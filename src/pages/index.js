@@ -1,2 +1,2 @@
 export * from "./Dashboard";
-export * from "./Peixes";
+export * from "./Peixe";

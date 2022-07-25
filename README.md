@@ -12,5 +12,4 @@ Para acessar o projeto, visite: https://piracema.vercel.app/
 - MUI
 - React Router
 - JSON Server
-- Mockend
 - Axios
