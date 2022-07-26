@@ -1,52 +1,63 @@
 import { DeleteOutlined as DeleteIcon, EditOutlined as EditIcon, PhishingOutlined as FishIcon } from "@mui/icons-material";
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Divider, LinearProgress, Pagination, Paper, Stack, Typography } from "@mui/material";
 import { Ferramentas } from "components";
+import { Variables } from "environment";
+import { useDebounce } from "hooks";
 import { Base } from "layout";
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { PeixeService } from "services";
 
 export const Peixe = () => {
+    const { debounce } = useDebounce();
     const [searchParams, setSearchParams] = useSearchParams();
     const [loading, setLoading] = useState(true);
     const [records, setRecords] = useState([]);
     const [totalRecords, setTotalRecords] = useState(0);
 
-    const search = useMemo(() => {
+    const busca = useMemo(() => {
         return (searchParams.get("busca") || "");
     }, [searchParams]);
 
-    const page = useMemo(() => {
+    const pagina = useMemo(() => {
         return (Number(searchParams.get("pagina") || "1"));
     }, [searchParams]);
 
     useEffect(() => {
         setLoading(true);
-        PeixeService.getAll(page, search)
-            .then((result) => {
-                setLoading(false);
-                if (result instanceof Error) {
-                    // Colocar um alert aqui!!! ***********************
-                } else {
-                    setTotalRecords(result.total);
-                    setRecords(result.data);
-                }
-            });
-    }, [search, page]);
+        debounce(() => {
+            PeixeService.getAll(pagina, busca)
+                .then((result) => {
+                    setLoading(false);
+                    if (result instanceof Error) {
+                        // Colocar um alert aqui!!! ***********************
+                    } else {
+                        setTotalRecords(result.total);
+                        setRecords(result.data);
+                    }
+                });
+        });
+    }, [busca, pagina]);
 
     return (
         <Base
             titulo="Relatório dos Peixes"
             barra={<Ferramentas
-                valueTextField={search}
-                onChangeTextField={(value) => setSearchParams({
-                    busca: value,
-                    pagina: "1"
-                }, {
-                    replace: true
-                })} />}>
+                valueTextField={busca}
+                onChangeTextField={(value) => setSearchParams({ busca: value, pagina: "1" }, { replace: true })} />}>
 
-            <Box>
+            <Box
+                component={Paper}
+                elevation={0}
+                variant="outlined"
+                marginY={2}
+                marginRight={2}
+                padding={2}>
+
+                {loading && (<LinearProgress variant="indeterminate" />)}
+
+                {!loading && totalRecords === 0 && (Variables.LISTAGEM)}
+
                 {records.map(
                     (record) => {
                         return (
@@ -55,9 +66,8 @@ export const Peixe = () => {
                                 component={Paper}
                                 elevation={0}
                                 variant="outlined"
-                                marginRight={2}
-                                marginY={2}
-                                padding={2}>
+                                padding={2}
+                                marginBottom={2} >
 
                                 <Typography
                                     marginBottom={0.5}
@@ -192,12 +202,17 @@ export const Peixe = () => {
                                         </Typography>
                                     </Button>
                                 </Stack>
-
                             </Box>
                         );
                     })}
-            </Box>
 
+                {(totalRecords > 0 && totalRecords > Variables.LINHAS) &&
+                    (<Pagination
+                        page={pagina}
+                        count={Math.ceil(totalRecords / Variables.LINHAS)}
+                        onChange={(e, page) => setSearchParams({ busca, pagina: page.toString() }, { replace: true })} />)}
+
+            </Box>
         </Base>
     );
 };

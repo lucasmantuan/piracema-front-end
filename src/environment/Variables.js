@@ -7,5 +7,10 @@ export const Variables = {
     /**
     * Quantidade de linhas carregadas por padrão.
     */
-    LINHAS: 10
+    LINHAS: 2,
+
+    /**
+    * Texto exibido quando nenhum registro é mostrado em uma listagem
+    */
+    LISTAGEM: "Nenhum Registro Encontrado...",
 };
