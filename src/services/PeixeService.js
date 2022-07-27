@@ -17,6 +17,15 @@ const getAll = async (page = 1, filter = "", id = "") => {
     }
 };
 
+const deleteById = async (id) => {
+    try {
+        await Api.delete(`/peixes/${id}`);
+    } catch (error) {
+        return new Error(error.message || "Erro ao apagar os registros...");
+    }
+};
+
 export const PeixeService = {
-    getAll
+    getAll,
+    deleteById
 };

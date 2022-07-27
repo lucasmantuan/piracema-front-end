@@ -1,19 +1,67 @@
 import { DeleteOutlined as DeleteIcon, EditOutlined as EditIcon, PhishingOutlined as FishIcon } from "@mui/icons-material";
-import { Box, Button, Divider, LinearProgress, Pagination, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, LinearProgress, Pagination, Paper, Stack, Typography } from "@mui/material";
 import { Ferramentas } from "components";
+import { usePopup } from "contexts";
 import { Variables } from "environment";
 import { useDebounce } from "hooks";
 import { Base } from "layout";
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { PeixeService } from "services";
 
 export const Peixe = () => {
     const { debounce } = useDebounce();
     const [searchParams, setSearchParams] = useSearchParams();
+    const [createPopup, closePopup] = usePopup();
     const [loading, setLoading] = useState(true);
     const [records, setRecords] = useState([]);
     const [totalRecords, setTotalRecords] = useState(0);
+
+    const handlePopupConfirmDelete = (id) => {
+        createPopup(
+            {
+                title: "Excluir?",
+                content: "Você deseja excluir o peixe?",
+                onClose: closePopup,
+                actions: (
+                    <Fragment>
+                        <Button
+                            onClick={() => {
+                                closePopup();
+                            }}
+                            autoFocus>
+                            Cancelar
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                handleDelete(id);
+                                closePopup();
+                            }}>
+                            Excluir
+                        </Button>
+                    </Fragment>
+                )
+            });
+    };
+
+    const handlePopupOkDelete = () => {
+        createPopup(
+            {
+                title: "Excluido",
+                content: "Peixe excluido com sucesso!",
+                actions: (
+                    <Fragment>
+                        <Button
+                            onClick={() => {
+                                closePopup();
+                            }}
+                            autoFocus>
+                            Fechar
+                        </Button>
+                    </Fragment>
+                )
+            });
+    };
 
     const busca = useMemo(() => {
         return (searchParams.get("busca") || "");
@@ -30,7 +78,7 @@ export const Peixe = () => {
                 .then((result) => {
                     setLoading(false);
                     if (result instanceof Error) {
-                        // Colocar um alert aqui!!! ***********************
+                        console.log(result.message);
                     } else {
                         setTotalRecords(result.total);
                         setRecords(result.data);
@@ -38,6 +86,22 @@ export const Peixe = () => {
                 });
         });
     }, [busca, pagina]);
+
+    const handleDelete = (id) => {
+        PeixeService.deleteById(id)
+            .then((result) => {
+                if (result instanceof Error) {
+                    console.log(result.message);
+                } else {
+                    setRecords((records) => {
+                        return [
+                            ...records.filter(record => record.id !== id)
+                        ];
+                    });
+                    handlePopupOkDelete();
+                }
+            });
+    };
 
     return (
         <Base
@@ -166,6 +230,9 @@ export const Peixe = () => {
                                     <Button
                                         variant="outlined"
                                         size="small"
+                                        onClick={() => {
+                                            handlePopupConfirmDelete(record.id);
+                                        }}
                                         startIcon={<DeleteIcon />}>
                                         <Typography
                                             variant="button"

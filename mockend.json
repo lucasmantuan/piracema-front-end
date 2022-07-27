@@ -3,9 +3,9 @@
         {
             "id": 1,
             "pitTag": "1521FAAD",
-            "nomeCientifico": "Aphanotorulus unicor",
-            "localCaptura": "Lago Itaipu",
-            "dataSoltura": "2022-06-10",
+            "nomeCientifico": "nome",
+            "localCaputra": "Lago Itaipu",
+            "dataSoltura": "20-06-2022",
             "localSoltura": "Canal de Piracema",
             "amostraDna": "24512-F-SW-KLB",
             "recaptura": false
@@ -13,9 +13,9 @@
         {
             "id": 2,
             "pitTag": "1521FAAD",
-            "nomeCientifico": "Anisotremus surinamensis",
-            "localCaptura": "Lago Itaipu",
-            "dataSoltura": "2022-06-10",
+            "nomeCientifico": "nome",
+            "localCaputra": "Lago Itaipu",
+            "dataSoltura": "20-06-2022",
             "localSoltura": "Canal de Piracema",
             "amostraDna": "24512-F-SW-KLB",
             "recaptura": false
@@ -23,9 +23,19 @@
         {
             "id": 3,
             "pitTag": "1521FAAD",
-            "nomeCientifico": "Anchoviella lepidentostole",
-            "localCaptura": "Lago Itaipu",
-            "dataSoltura": "2022-06-10",
+            "nomeCientifico": "nome",
+            "localCaputra": "Lago Itaipu",
+            "dataSoltura": "20-06-2022",
+            "localSoltura": "Canal de Piracema",
+            "amostraDna": "24512-F-SW-KLB",
+            "recaptura": false
+        },
+        {
+            "id": 4,
+            "pitTag": "1521FAAD",
+            "nomeCientifico": "nome",
+            "localCaputra": "Lago Itaipu",
+            "dataSoltura": "20-06-2022",
             "localSoltura": "Canal de Piracema",
             "amostraDna": "24512-F-SW-KLB",
             "recaptura": false
