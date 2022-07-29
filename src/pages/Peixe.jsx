@@ -6,7 +6,7 @@ import { Variables } from "environment";
 import { useDebounce } from "hooks";
 import { Base } from "layout";
 import { Fragment, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { PeixeService } from "services";
 
 export const Peixe = () => {
@@ -16,6 +16,7 @@ export const Peixe = () => {
     const [loading, setLoading] = useState(true);
     const [records, setRecords] = useState([]);
     const [totalRecords, setTotalRecords] = useState(0);
+    const navigate = useNavigate();
 
     const handlePopupConfirmDelete = (id) => {
         createPopup(
@@ -246,6 +247,7 @@ export const Peixe = () => {
                                     <Button
                                         variant="outlined"
                                         size="small"
+                                        onClick={() => navigate(`/peixe/detalhe/${record.id}`)}
                                         startIcon={<EditIcon />}>
                                         <Typography
                                             variant="button"
