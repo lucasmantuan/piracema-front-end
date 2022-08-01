@@ -6,13 +6,27 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { PeixeService } from "services";
 import { UnformForm, UnformSwitch, UnformTextField } from "unform";
+import { number as YupNumber, object as YupObject, string as YupString } from "yup";
 
 export const PeixeDetalhe = () => {
     const [loading, setLoading] = useState(false);
     const [pitTag, setPitTag] = useState("");
-    const { form, save } = useUnformForm();
+    const { form, save, saveReturn, isSaveReturn } = useUnformForm();
     const { id = "new" } = useParams();
     const navigate = useNavigate();
+
+    const schema = YupObject().shape({
+        pitTag: YupString().required(),
+        nomeCientifico: YupString().required(),
+        comprimentoPadrao: YupNumber().required(),
+        comprimentoTotal: YupNumber().required(),
+        localCaptura: YupString().required(),
+        pesoSoltura: YupNumber().required(),
+        dataSoltura: YupString().required(),
+        localSoltura: YupString().required(),
+        amostraDna: YupString().required(),
+        recaptura: YupString().required()
+    });
 
     useEffect(() => {
         if (id !== "new") {
@@ -28,38 +42,74 @@ export const PeixeDetalhe = () => {
                         form.current?.setData(result);
                     }
                 });
+        } else {
+            form.current?.setData({
+                pitTag: "",
+                nomeCientifico: "",
+                comprimentoPadrao: null,
+                comprimentoTotal: null,
+                localCaptura: "",
+                pesoSoltura: null,
+                dataSoltura: "",
+                localSoltura: "",
+                amostraDna: "",
+                recaptura: false
+            });
         }
     }, [id]);
 
-    const handleSave = (inputs) => {
-        if (id === "new") {
-            PeixeService.create(inputs)
-                .then((result) => {
-                    setLoading(false);
-                    if (result instanceof Error) {
-                        // Dialog
-                    } else {
-                        navigate(`/peixe/detalhe/${result}`);
+    const handleSave = (input) => {
+        schema.validate(input, { abortEarly: false })
+            .then((valid) => {
+                if (id === "new") {
+                    PeixeService.create(valid)
+                        .then((result) => {
+                            setLoading(false);
+                            if (result instanceof Error) {
+                                // Dialog
+                            } else {
+                                navigate(`/peixe/detalhe/${result}`);
+                            }
+                        });
+                } else {
+                    PeixeService.updateById(Number(id), { id: Number(id), ...valid })
+                        .then((result) => {
+                            setLoading(false);
+                            if (result instanceof Error) {
+                                // Dialog
+                            } else {
+                                navigate("/peixe");
+                            }
+                        });
+                }
+            })
+            .catch((errors) => {
+                const messages = {};
+                errors.inner.forEach((value) => {
+                    if (!value.path) {
+                        return;
                     }
+                    messages[value.path] = value.message;
                 });
-        } else {
-            PeixeService.updateById(Number(id), { id: Number(id), ...inputs })
-                .then((result) => {
-                    setLoading(false);
-                    if (result instanceof Error) {
-                        // Dialog
-                    } else {
-                        navigate("/peixe");
-                    }
-                });
-        }
+                form.current?.setErrors(messages);
+            });
     };
+
+    const handleDelete = (id) => { };
 
     return (
         <Base
             titulo={id === "new" ? "Novo Peixe" : `Peixe ${pitTag}`}
             barra={<BarraCadastro
-                onClickSave={save} />}>
+                onClickSave={save}
+                showSaveReturn
+                onClickSaveReturn={saveReturn}
+                onClickNew={() => { navigate("/peixe/detalhe/new"); }}
+                textNew="Novo"
+                showNew={id !== "new"}
+                onClickDelete={() => { handleDelete(Number(id)); }}
+                showDelete={id !== "new"}
+                onClickReturn={() => { navigate("/peixe"); }} />}>
 
             <UnformForm ref={form} onSubmit={handleSave}>
                 <Box
@@ -123,7 +173,7 @@ export const PeixeDetalhe = () => {
                                 xs={12}
                                 md={6}>
                                 <UnformTextField
-                                    type="text"
+                                    type="number"
                                     name="comprimentoPadrao"
                                     size="small"
                                     label="Comprimento Padrão"
@@ -144,7 +194,7 @@ export const PeixeDetalhe = () => {
                                 xs={12}
                                 md={6}>
                                 <UnformTextField
-                                    type="text"
+                                    type="number"
                                     name="comprimentoTotal"
                                     size="small"
                                     label="Comprimento Total"
@@ -177,7 +227,7 @@ export const PeixeDetalhe = () => {
                                 xs={12}
                                 md={6}>
                                 <UnformTextField
-                                    type="text"
+                                    type="number"
                                     name="pesoSoltura"
                                     size="small"
                                     label="Peso na Soltura"
@@ -240,7 +290,6 @@ export const PeixeDetalhe = () => {
                                     label="Recapturado"
                                     disabled={loading} />
                             </Grid>
-
                         </Grid>
                     </Grid>
                 </Box>

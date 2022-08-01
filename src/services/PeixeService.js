@@ -1,4 +1,4 @@
-import { Constants } from "environment";
+import { Constants } from "utils";
 import { Api } from "./Api";
 
 const getAll = async (page = 1, filter = "", id = "") => {

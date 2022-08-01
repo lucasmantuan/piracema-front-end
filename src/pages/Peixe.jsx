@@ -2,7 +2,7 @@ import { DeleteOutlined as DeleteIcon, EditOutlined as EditIcon, PhishingOutline
 import { Box, Button, LinearProgress, Pagination, Paper, Stack, Typography } from "@mui/material";
 import { BarraRelatorio } from "components";
 import { usePopup } from "contexts";
-import { Constants } from "environment";
+import { Constants } from "utils";
 import { useDebounce } from "hooks";
 import { Base } from "layout";
 import { Fragment, useEffect, useMemo, useState } from "react";
@@ -108,11 +108,11 @@ export const Peixe = () => {
         <Base
             titulo="Relatório dos Peixes"
             barra={<BarraRelatorio
-                showTextField
-                valueTextField={busca}
-                onChangeTextField={(value) => setSearchParams({ busca: value, pagina: "1" }, { replace: true })}
-                textButton="Novo"
-                onClickButton={() => { navigate("/peixe/detalhe/new"); }} />}>
+                showSearch
+                textSearch={busca}
+                onChangeSearch={(value) => setSearchParams({ busca: value, pagina: "1" }, { replace: true })}
+                textNew="Novo"
+                onClickNew={() => { navigate("/peixe/detalhe/new"); }} />}>
 
             <Box
                 component={Paper}

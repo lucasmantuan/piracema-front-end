@@ -3,6 +3,7 @@ import { Menu } from "components";
 import { AppThemeProvider, MenuProvider, PopupProvider } from "contexts";
 import { BrowserRouter } from "react-router-dom";
 import { AppRoutes } from "routes";
+import { Translates } from "utils";
 
 export const App = () => {
     return (

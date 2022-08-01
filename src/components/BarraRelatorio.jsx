@@ -1,14 +1,14 @@
 import { AddOutlined as AddIcon, SearchOutlined as SearchIcon } from "@mui/icons-material";
 import { Box, Button, InputAdornment, Paper, TextField, Typography, useTheme } from "@mui/material";
-import { Constants } from "environment";
+import { Constants } from "utils";
 
 export const BarraRelatorio = ({
-    showTextField = false,
-    valueTextField = "",
-    onChangeTextField,
-    showButton = true,
-    textButton,
-    onClickButton }) => {
+    showSearch = false,
+    textSearch = "",
+    onChangeSearch,
+    showNew = true,
+    textNew,
+    onClickNew }) => {
     const theme = useTheme();
 
     return (
@@ -23,12 +23,12 @@ export const BarraRelatorio = ({
             justifyContent="space-between"
             gap={1}>
 
-            {showTextField && <TextField
+            {showSearch && <TextField
                 variant="outlined"
                 size="small"
                 label={Constants.PROCURAR}
-                value={valueTextField}
-                onChange={(e) => onChangeTextField?.(e.target.value)}
+                value={textSearch}
+                onChange={(e) => onChangeSearch?.(e.target.value)}
                 InputProps={{
                     endAdornment: <InputAdornment
                         position="end">
@@ -40,19 +40,20 @@ export const BarraRelatorio = ({
             <Box
                 flex={1}
                 display="flex"
-                justifyContent="flex-end">
+                justifyContent="flex-end"
+                gap={1}>
 
-                {showButton && <Button
+                {showNew && <Button
                     variant="contained"
                     disableElevation
-                    onClick={onClickButton}
+                    onClick={onClickNew}
                     endIcon={<AddIcon />}>
                     <Typography
                         variant="button"
                         whiteSpace="nowrap"
                         textOverflow="ellipsis"
                         overflow="hidden">
-                        {textButton}
+                        {textNew}
                     </Typography>
                 </Button>}
 
