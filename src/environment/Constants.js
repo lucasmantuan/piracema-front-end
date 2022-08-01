@@ -1,4 +1,4 @@
-export const Variables = {
+export const Constants = {
     /**
     * URL base para a consulta dos dados da aplicação.
     */
@@ -13,4 +13,9 @@ export const Variables = {
     * Texto exibido quando nenhum registro é mostrado em uma listagem
     */
     LISTAGEM: "Nenhum Registro Encontrado...",
+
+    /**
+    * Texto para o label dos inputs de procura
+    */
+    PROCURAR: "Procurar...",
 };

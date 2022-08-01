@@ -1,6 +1,6 @@
 import axios from "axios";
-import { Variables } from "environment";
+import { Constants } from "environment";
 
 export const Api = axios.create({
-    baseURL: Variables.URL
+    baseURL: Constants.URL
 });

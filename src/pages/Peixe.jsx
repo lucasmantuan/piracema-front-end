@@ -1,8 +1,8 @@
 import { DeleteOutlined as DeleteIcon, EditOutlined as EditIcon, PhishingOutlined as FishIcon } from "@mui/icons-material";
 import { Box, Button, LinearProgress, Pagination, Paper, Stack, Typography } from "@mui/material";
-import { Ferramentas } from "components";
+import { BarraRelatorio } from "components";
 import { usePopup } from "contexts";
-import { Variables } from "environment";
+import { Constants } from "environment";
 import { useDebounce } from "hooks";
 import { Base } from "layout";
 import { Fragment, useEffect, useMemo, useState } from "react";
@@ -107,9 +107,12 @@ export const Peixe = () => {
     return (
         <Base
             titulo="Relatório dos Peixes"
-            barra={<Ferramentas
+            barra={<BarraRelatorio
+                showTextField
                 valueTextField={busca}
-                onChangeTextField={(value) => setSearchParams({ busca: value, pagina: "1" }, { replace: true })} />}>
+                onChangeTextField={(value) => setSearchParams({ busca: value, pagina: "1" }, { replace: true })}
+                textButton="Novo"
+                onClickButton={() => { navigate("/peixe/detalhe/new"); }} />}>
 
             <Box
                 component={Paper}
@@ -121,7 +124,7 @@ export const Peixe = () => {
 
                 {loading && (<LinearProgress variant="indeterminate" />)}
 
-                {!loading && totalRecords === 0 && (Variables.LISTAGEM)}
+                {!loading && totalRecords === 0 && (Constants.LISTAGEM)}
 
                 {records.map(
                     (record) => {
@@ -275,10 +278,10 @@ export const Peixe = () => {
                         );
                     })}
 
-                {(totalRecords > 0 && totalRecords > Variables.LINHAS) &&
+                {(totalRecords > 0 && totalRecords > Constants.LINHAS) &&
                     (<Pagination
                         page={pagina}
-                        count={Math.ceil(totalRecords / Variables.LINHAS)}
+                        count={Math.ceil(totalRecords / Constants.LINHAS)}
                         onChange={(e, page) => setSearchParams({ busca, pagina: page.toString() }, { replace: true })} />)}
 
             </Box>

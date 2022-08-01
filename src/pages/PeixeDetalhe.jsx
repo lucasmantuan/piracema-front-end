@@ -1,22 +1,67 @@
-import { Box, Checkbox, Grid, InputAdornment, LinearProgress, Paper } from "@mui/material";
-import { Ferramentas } from "components";
-import { UnformForm, UnformTextField, UnformSwitch } from "forms";
+import { Box, Grid, InputAdornment, LinearProgress, Paper } from "@mui/material";
+import { BarraCadastro } from "components";
+import { useUnformForm } from "hooks";
 import { Base } from "layout";
-import { useState } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { PeixeService } from "services";
+import { UnformForm, UnformSwitch, UnformTextField } from "unform";
 
 export const PeixeDetalhe = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
     const [loading, setLoading] = useState(false);
     const [pitTag, setPitTag] = useState("");
+    const { form, save } = useUnformForm();
     const { id = "new" } = useParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (id !== "new") {
+            setLoading(true);
+            PeixeService.getById(Number(id))
+                .then((result) => {
+                    setLoading(false);
+                    if (result instanceof Error) {
+                        // Dialog
+                        navigate("/peixes");
+                    } else {
+                        setPitTag(result.pitTag);
+                        form.current?.setData(result);
+                    }
+                });
+        }
+    }, [id]);
+
+    const handleSave = (inputs) => {
+        if (id === "new") {
+            PeixeService.create(inputs)
+                .then((result) => {
+                    setLoading(false);
+                    if (result instanceof Error) {
+                        // Dialog
+                    } else {
+                        navigate(`/peixe/detalhe/${result}`);
+                    }
+                });
+        } else {
+            PeixeService.updateById(Number(id), { id: Number(id), ...inputs })
+                .then((result) => {
+                    setLoading(false);
+                    if (result instanceof Error) {
+                        // Dialog
+                    } else {
+                        navigate("/peixe");
+                    }
+                });
+        }
+    };
 
     return (
         <Base
-            titulo={id === "new" ? "Novo Peixe" : `PitTag ${pitTag}`}
-            barra={<Ferramentas />}>
+            titulo={id === "new" ? "Novo Peixe" : `Peixe ${pitTag}`}
+            barra={<BarraCadastro
+                onClickSave={save} />}>
 
-            <UnformForm>
+            <UnformForm ref={form} onSubmit={handleSave}>
                 <Box
                     component={Paper}
                     elevation={0}
