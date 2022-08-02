@@ -1,9 +1,9 @@
 import { Constants } from "utils";
 import { Api } from "./Api";
 
-const getAll = async (page = 1, filter = "", id = "") => {
+const getAll = async (page = 1, filter = "") => {
     try {
-        const url = `peixes?_page=${page}&_limit=${Constants.LINHAS}&nomeCientifico_like=${filter}&id_like=${id}`;
+        const url = `peixes?_page=${page}&_limit=${Constants.LINHAS}&nomeCientifico_like=${filter}`;
         const { data, headers } = await Api.get(url);
         if (data) {
             return {

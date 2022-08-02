@@ -39,7 +39,6 @@ export const PopupProvider = ({ children }) => {
         actions,
         open,
         onClose }) => {
-        console.log(onClose);
         return (
             <Dialog open={open} onClose={onClose} >
                 <DialogTitle>

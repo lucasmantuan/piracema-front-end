@@ -1,16 +1,18 @@
-import { Box, Grid, InputAdornment, LinearProgress, Paper } from "@mui/material";
-import { BarraCadastro } from "components";
+import { Box, Button, Grid, InputAdornment, LinearProgress, Paper } from "@mui/material";
+import { AutoCompleteNome, BarraCadastro } from "components";
+import { usePopup } from "contexts";
 import { useUnformForm } from "hooks";
 import { Base } from "layout";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { PeixeService } from "services";
 import { UnformForm, UnformSwitch, UnformTextField } from "unform";
-import { number as YupNumber, object as YupObject, string as YupString } from "yup";
+import { number as YupNumber, object as YupObject, string as YupString, boolean as YupBoolean } from "yup";
 
 export const PeixeDetalhe = () => {
     const [loading, setLoading] = useState(false);
     const [pitTag, setPitTag] = useState("");
+    const [createPopup, closePopup] = usePopup();
     const { form, save, saveReturn, isSaveReturn } = useUnformForm();
     const { id = "new" } = useParams();
     const navigate = useNavigate();
@@ -25,7 +27,7 @@ export const PeixeDetalhe = () => {
         dataSoltura: YupString().required(),
         localSoltura: YupString().required(),
         amostraDna: YupString().required(),
-        recaptura: YupString().required()
+        recaptura: YupBoolean().required()
     });
 
     useEffect(() => {
@@ -46,10 +48,10 @@ export const PeixeDetalhe = () => {
             form.current?.setData({
                 pitTag: "",
                 nomeCientifico: "",
-                comprimentoPadrao: null,
-                comprimentoTotal: null,
+                comprimentoPadrao: "",
+                comprimentoTotal: "",
                 localCaptura: "",
-                pesoSoltura: null,
+                pesoSoltura: "",
                 dataSoltura: "",
                 localSoltura: "",
                 amostraDna: "",
@@ -68,7 +70,11 @@ export const PeixeDetalhe = () => {
                             if (result instanceof Error) {
                                 // Dialog
                             } else {
-                                navigate(`/peixe/detalhe/${result}`);
+                                if (isSaveReturn()) {
+                                    navigate("/peixe");
+                                } else {
+                                    navigate(`/peixe/detalhe/${result}`);
+                                }
                             }
                         });
                 } else {
@@ -78,7 +84,9 @@ export const PeixeDetalhe = () => {
                             if (result instanceof Error) {
                                 // Dialog
                             } else {
-                                navigate("/peixe");
+                                if (isSaveReturn()) {
+                                    navigate("/peixe");
+                                }
                             }
                         });
                 }
@@ -95,7 +103,63 @@ export const PeixeDetalhe = () => {
             });
     };
 
-    const handleDelete = (id) => { };
+    const handlePopupConfirmDelete = (id) => {
+        createPopup(
+            {
+                title: "Excluir?",
+                content: "Você deseja excluir o peixe?",
+                onClose: closePopup,
+                actions: (
+                    <Fragment>
+                        <Button
+                            onClick={() => {
+                                closePopup();
+                            }}
+                            autoFocus>
+                            Cancelar
+                        </Button>
+                        <Button
+                            onClick={() => {
+                                handleDelete(id);
+                                closePopup();
+                            }}>
+                            Excluir
+                        </Button>
+                    </Fragment>
+                )
+            });
+    };
+
+    const handlePopupOkDelete = () => {
+        createPopup(
+            {
+                title: "Excluido",
+                content: "Peixe excluido com sucesso!",
+                actions: (
+                    <Fragment>
+                        <Button
+                            onClick={() => {
+                                closePopup();
+                            }}
+                            autoFocus>
+                            Fechar
+                        </Button>
+                    </Fragment>
+                )
+            });
+    };
+
+    const handleDelete = (id) => {
+        PeixeService.deleteById(id)
+            .then((result) => {
+                if (result instanceof Error) {
+                    console.log(result.message);
+                } else {
+                    handlePopupOkDelete();
+                    navigate("/peixe");
+                }
+            });
+    };
 
     return (
         <Base
@@ -107,7 +171,7 @@ export const PeixeDetalhe = () => {
                 onClickNew={() => { navigate("/peixe/detalhe/new"); }}
                 textNew="Novo"
                 showNew={id !== "new"}
-                onClickDelete={() => { handleDelete(Number(id)); }}
+                onClickDelete={() => { handlePopupConfirmDelete(Number(id)); }}
                 showDelete={id !== "new"}
                 onClickReturn={() => { navigate("/peixe"); }} />}>
 
@@ -159,13 +223,8 @@ export const PeixeDetalhe = () => {
                                 item
                                 xs={12}
                                 md={6}>
-                                <UnformTextField
-                                    type="text"
-                                    name="nomeCientifico"
-                                    size="small"
-                                    label="Nome Ciêntifico"
-                                    disabled={loading}
-                                    fullWidth />
+                                <AutoCompleteNome
+                                    externalLoading={loading} />
                             </Grid>
 
                             <Grid
@@ -179,7 +238,6 @@ export const PeixeDetalhe = () => {
                                     label="Comprimento Padrão"
                                     disabled={loading}
                                     fullWidth
-                                    onChange={(e) => setPitTag(e.target.value)}
                                     InputProps={{
                                         endAdornment:
                                             <InputAdornment

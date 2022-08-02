@@ -6,11 +6,10 @@ Para acessar o projeto, visite: https://piracema.vercel.app/
 
 ## Tecnologias Utilizadas
 
-### Front-end
-
 - React
 - MUI
 - React Router
 - JSON Server
 - Axios
 - Unform
+- Yup
