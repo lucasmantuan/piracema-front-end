@@ -1,5 +1,6 @@
 import { Box, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/system";
+import { Copyright } from "components";
 
 export const Base = ({ children, barra, titulo }) => {
     const theme = useTheme();
@@ -31,6 +32,11 @@ export const Base = ({ children, barra, titulo }) => {
                 flex={1}
                 overflow="auto">
                 {children}
+            </Box>
+            <Box
+                alignSelf="center"
+                margin={1}>
+                <Copyright />
             </Box>
         </Box>
     );
