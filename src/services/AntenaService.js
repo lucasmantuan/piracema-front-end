@@ -3,12 +3,12 @@ import { Api } from "./Api";
 
 const getAll = async (page = 1, filter = "") => {
     try {
-        const url = `peixes?_page=${page}&_limit=${Constants.PEIXES}&nomeCientifico_like=${filter}`;
+        const url = `antenas?_page=${page}&_limit=${Constants.ANTENAS}&nome_like=${filter}`;
         const { data, headers } = await Api.get(url);
         if (data) {
             return {
                 data,
-                total: Number(headers["x-total-count"] || Constants.PEIXES)
+                total: Number(headers["x-total-count"] || Constants.ANTENAS)
             };
         }
         return new Error("Erro ao listar os registros...");
@@ -19,7 +19,7 @@ const getAll = async (page = 1, filter = "") => {
 
 const getById = async (id) => {
     try {
-        const { data } = await Api.get(`/peixes/${id}`);
+        const { data } = await Api.get(`/antenas/${id}`);
         if (data) {
             return data;
         }
@@ -31,7 +31,7 @@ const getById = async (id) => {
 
 const create = async (inputs) => {
     try {
-        const { data } = await Api.post("/peixes", inputs);
+        const { data } = await Api.post("/antenas", inputs);
         if (data) {
             return data.id;
         }
@@ -43,7 +43,7 @@ const create = async (inputs) => {
 
 const updateById = async (id, inputs) => {
     try {
-        await Api.put(`/peixes/${id}`, inputs);
+        await Api.put(`/antenas/${id}`, inputs);
     } catch (error) {
         return new Error(error.message || "Erro ao Atualizar o Registro...");
     }
@@ -51,13 +51,13 @@ const updateById = async (id, inputs) => {
 
 const deleteById = async (id) => {
     try {
-        await Api.delete(`/peixes/${id}`);
+        await Api.delete(`/antenas/${id}`);
     } catch (error) {
         return new Error(error.message || "Erro ao apagar os registros...");
     }
 };
 
-export const PeixeService = {
+export const AntenaService = {
     getAll,
     getById,
     create,

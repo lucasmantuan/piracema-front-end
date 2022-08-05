@@ -1,16 +1,20 @@
 import { FormControlLabel, FormGroup, Switch } from "@mui/material";
 import { useField } from "@unform/core";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const UnformSwitch = ({ name, ...rest }) => {
     const { fieldName, registerField, defaultValue, error, clearError } = useField(name);
-    const [value, setValue] = useState(defaultValue || false);
+    const [value, setValue] = useState(false);
+    const element = useRef(null);
 
     useEffect(() => {
         registerField({
             name: fieldName,
-            getValue: () => value,
-            setValue: (ref, value) => setValue(value)
+            ref: element.current,
+            //getValue: () => value,
+            getValue: (ref) => ref.checked,
+            //setValue: (ref, value) => setValue(value)
+            setValue: (ref, value) => { ref.checked = value; }
         });
     }, [registerField, fieldName, value]);
 
@@ -19,6 +23,7 @@ export const UnformSwitch = ({ name, ...rest }) => {
             <FormControlLabel
                 {...rest}
                 control={<Switch
+                    inputRef={element}
                     checked={value}
                     onChange={(e) => {
                         setValue(e.target.checked);

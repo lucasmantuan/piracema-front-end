@@ -1,6 +1,6 @@
-import { HomeOutlined as HomeIcon, PhishingOutlined as FishIcon } from "@mui/icons-material";
+import { CellTowerOutlined as TowerIcon, HomeOutlined as HomeIcon, PhishingOutlined as FishIcon, WavesOutlined as WavesIcon } from "@mui/icons-material";
 import { useMenuContext } from "contexts";
-import { Dashboard, Peixe, PeixeDetalhe } from "pages";
+import { Antena, AntenaDetalhe, Dashboard, Peixe, PeixeDetalhe } from "pages";
 import { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
@@ -20,6 +20,18 @@ export const AppRoutes = () => {
                 icon: <FishIcon />,
                 label: "Peixes",
                 path: "/peixe"
+            },
+            {
+                id: 3,
+                icon: <TowerIcon />,
+                label: "Antenas",
+                path: "/antena"
+            },
+            {
+                id: 4,
+                icon: <WavesIcon />,
+                label: "Passagens",
+                path: "/passagem"
             }
         ]);
     }, []);
@@ -35,6 +47,12 @@ export const AppRoutes = () => {
             <Route
                 path="/peixe/detalhe/:id"
                 element={<PeixeDetalhe />} />
+            <Route
+                path="/antena"
+                element={<Antena />} />
+            <Route
+                path="/antena/detalhe/:id"
+                element={<AntenaDetalhe />} />
             <Route
                 path="*"
                 element={<Navigate

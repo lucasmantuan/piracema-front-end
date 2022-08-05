@@ -1,4 +1,4 @@
-import { Box, Typography, useMediaQuery } from "@mui/material";
+import { Box, Stack, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/system";
 import { Copyright } from "components";
 
@@ -13,7 +13,9 @@ export const Base = ({ children, barra, titulo }) => {
             flexDirection="column"
             gap={1}>
             <Box
-                margin={2}>
+                marginX={2}
+                marginTop={4}
+                marginBottom={2}>
                 <Typography
                     variant={smDown ? "h5" : "h4"}
                     whiteSpace="nowrap"
@@ -32,11 +34,15 @@ export const Base = ({ children, barra, titulo }) => {
                 flex={1}
                 overflow="auto">
                 {children}
-            </Box>
-            <Box
-                alignSelf="center"
-                margin={1}>
-                <Copyright />
+
+                <Stack
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                    marginBottom={2}>
+                    <Copyright />
+                </Stack>
+
             </Box>
         </Box>
     );

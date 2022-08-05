@@ -1,52 +1,23 @@
 {
+  "antenas": [
+    {
+      "id": 1,
+      "nome": "Principal",
+      "dataInstalacao": "20-06-2022",
+      "latitude": 500,
+      "longitude": 450,
+      "status": true
+    }
+  ],
   "peixes": [
     {
       "id": 1,
-      "pitTag": "1521FAAD",
+      "pitTag": "1521FAXZ",
       "nomeCientifico": "Segundo",
-      "comprimentoPadrao": 50,
+      "comprimentoPadrao": 500,
       "comprimentoTotal": 450,
       "localCaptura": "Lago Itaipu",
       "pesoSoltura": 200,
-      "dataSoltura": "20-06-2022",
-      "localSoltura": "Canal de Piracema",
-      "amostraDna": "24512-F-SW-KLB",
-      "recaptura": false
-    },
-    {
-      "id": 2,
-      "pitTag": "1521FAAD",
-      "nomeCientifico": "Primeiro",
-      "comprimentoPadrao": 50,
-      "comprimentoTotal": 45,
-      "localCaptura": "Lago Itaipu",
-      "pesoSoltura": 2,
-      "dataSoltura": "20-06-2022",
-      "localSoltura": "Canal de Piracema",
-      "amostraDna": "24512-F-SW-KLB",
-      "recaptura": true
-    },
-    {
-      "id": 3,
-      "pitTag": "1521FAAD",
-      "nomeCientifico": "Terceiro",
-      "comprimentoPadrao": 50,
-      "comprimentoTotal": 45,
-      "localCaptura": "Lago Itaipu",
-      "pesoSoltura": 2,
-      "dataSoltura": "20-06-2022",
-      "localSoltura": "Canal de Piracema",
-      "amostraDna": "24512-F-SW-KLB",
-      "recaptura": true
-    },
-    {
-      "id": 4,
-      "pitTag": "1521FAAD",
-      "nomeCientifico": "Terceiro",
-      "comprimentoPadrao": 50,
-      "comprimentoTotal": 45,
-      "localCaptura": "Lago Itaipu",
-      "pesoSoltura": 2,
       "dataSoltura": "20-06-2022",
       "localSoltura": "Canal de Piracema",
       "amostraDna": "24512-F-SW-KLB",

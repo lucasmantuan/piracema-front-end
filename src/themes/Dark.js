@@ -10,5 +10,14 @@ export const Dark = createTheme({
         background: {
             default: grey[900]
         }
+    },
+    components: {
+        MuiDrawer: {
+            styleOverrides: {
+                paper: {
+                    background: grey[900]
+                }
+            }
+        }
     }
 });

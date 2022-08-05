@@ -2,12 +2,12 @@ import { DeleteOutlined as DeleteIcon, EditOutlined as EditIcon, PhishingOutline
 import { Box, Button, LinearProgress, Pagination, Paper, Stack, Typography } from "@mui/material";
 import { BarraRelatorio } from "components";
 import { usePopup } from "contexts";
-import { Constants } from "utils";
 import { useDebounce } from "hooks";
 import { Base } from "layout";
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { PeixeService } from "services";
+import { Constants } from "utils";
 
 export const Peixe = () => {
     const { debounce } = useDebounce();
@@ -122,7 +122,9 @@ export const Peixe = () => {
                 marginRight={2}
                 padding={2}>
 
-                {loading && (<LinearProgress variant="indeterminate" />)}
+                {loading && (
+                    <LinearProgress
+                        variant="indeterminate" />)}
 
                 {!loading && totalRecords === 0 && (Constants.LISTAGEM)}
 
@@ -278,10 +280,10 @@ export const Peixe = () => {
                         );
                     })}
 
-                {(totalRecords > 0 && totalRecords > Constants.LINHAS) &&
+                {(totalRecords > 0 && totalRecords > Constants.PEIXES) &&
                     (<Pagination
                         page={pagina}
-                        count={Math.ceil(totalRecords / Constants.LINHAS)}
+                        count={Math.ceil(totalRecords / Constants.PEIXES)}
                         onChange={(e, page) => setSearchParams({ busca, pagina: page.toString() }, { replace: true })} />)}
 
             </Box>

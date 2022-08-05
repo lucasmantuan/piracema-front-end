@@ -1,61 +1,51 @@
-import { Box, Button, Grid, InputAdornment, LinearProgress, Paper } from "@mui/material";
-import { AutoCompleteNome, BarraCadastro } from "components";
+import { Box, Button, Grid, LinearProgress, Paper } from "@mui/material";
+import { BarraCadastro } from "components";
 import { usePopup } from "contexts";
 import { useUnformForm } from "hooks";
 import { Base } from "layout";
 import { Fragment, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { PeixeService } from "services";
+import { AntenaService } from "services";
 import { UnformForm, UnformSwitch, UnformTextField } from "unform";
 import { boolean as YupBoolean, number as YupNumber, object as YupObject, string as YupString } from "yup";
 
-export const PeixeDetalhe = () => {
+export const AntenaDetalhe = () => {
     const [loading, setLoading] = useState(false);
-    const [pitTag, setPitTag] = useState("");
+    const [nome, setNome] = useState("");
     const [createPopup, closePopup] = usePopup();
     const { form, save, saveReturn, isSaveReturn } = useUnformForm();
     const { id = "new" } = useParams();
     const navigate = useNavigate();
 
     const schema = YupObject().shape({
-        pitTag: YupString().required(),
-        nomeCientifico: YupString().required(),
-        comprimentoPadrao: YupNumber().required(),
-        comprimentoTotal: YupNumber().required(),
-        localCaptura: YupString().required(),
-        pesoSoltura: YupNumber().required(),
-        dataSoltura: YupString().required(),
-        localSoltura: YupString().required(),
-        amostraDna: YupString().required(),
-        recaptura: YupBoolean().required()
+        nome: YupString().required(),
+        dataInstalacao: YupString().required(),
+        latitude: YupNumber().required(),
+        longitude: YupNumber().required(),
+        status: YupBoolean().required()
     });
 
     useEffect(() => {
         if (id !== "new") {
             setLoading(true);
-            PeixeService.getById(Number(id))
+            AntenaService.getById(Number(id))
                 .then((result) => {
                     setLoading(false);
                     if (result instanceof Error) {
                         // Dialog
                         navigate("/peixes");
                     } else {
-                        setPitTag(result.pitTag);
+                        setNome(result.nome);
                         form.current?.setData(result);
                     }
                 });
         } else {
             form.current?.setData({
-                pitTag: "",
-                nomeCientifico: "",
-                comprimentoPadrao: "",
-                comprimentoTotal: "",
-                localCaptura: "",
-                pesoSoltura: "",
-                dataSoltura: "",
-                localSoltura: "",
-                amostraDna: "",
-                recaptura: false
+                nome: "",
+                dataInstalacao: "",
+                latitude: "",
+                longitude: "",
+                status: false
             });
         }
     }, [id]);
@@ -63,29 +53,30 @@ export const PeixeDetalhe = () => {
     const handleSave = (input) => {
         schema.validate(input, { abortEarly: false })
             .then((valid) => {
+                console.log(valid);
                 if (id === "new") {
-                    PeixeService.create(valid)
+                    AntenaService.create(valid)
                         .then((result) => {
                             setLoading(false);
                             if (result instanceof Error) {
                                 // Dialog
                             } else {
                                 if (isSaveReturn()) {
-                                    navigate("/peixe");
+                                    navigate("/antena");
                                 } else {
-                                    navigate(`/peixe/detalhe/${result}`);
+                                    navigate(`/antena/detalhe/${result}`);
                                 }
                             }
                         });
                 } else {
-                    PeixeService.updateById(Number(id), { id: Number(id), ...valid })
+                    AntenaService.updateById(Number(id), { id: Number(id), ...valid })
                         .then((result) => {
                             setLoading(false);
                             if (result instanceof Error) {
                                 // Dialog
                             } else {
                                 if (isSaveReturn()) {
-                                    navigate("/peixe");
+                                    navigate("/antena");
                                 }
                             }
                         });
@@ -107,7 +98,7 @@ export const PeixeDetalhe = () => {
         createPopup(
             {
                 title: "Excluir?",
-                content: "Você deseja excluir o peixe?",
+                content: "Você deseja excluir a antena?",
                 onClose: closePopup,
                 actions: (
                     <Fragment>
@@ -133,8 +124,8 @@ export const PeixeDetalhe = () => {
     const handlePopupOkDelete = () => {
         createPopup(
             {
-                title: "Excluido",
-                content: "Peixe excluido com sucesso!",
+                title: "Excluida",
+                content: "Antena excluida com sucesso!",
                 actions: (
                     <Fragment>
                         <Button
@@ -150,30 +141,30 @@ export const PeixeDetalhe = () => {
     };
 
     const handleDelete = (id) => {
-        PeixeService.deleteById(id)
+        AntenaService.deleteById(id)
             .then((result) => {
                 if (result instanceof Error) {
                     console.log(result.message);
                 } else {
                     handlePopupOkDelete();
-                    navigate("/peixe");
+                    navigate("/antena");
                 }
             });
     };
 
     return (
         <Base
-            titulo={id === "new" ? "Novo Peixe" : `Peixe ${pitTag}`}
+            titulo={id === "new" ? "Nova Antena" : `Antena ${nome}`}
             barra={<BarraCadastro
                 onClickSave={save}
                 showSaveReturn
                 onClickSaveReturn={saveReturn}
-                onClickNew={() => { navigate("/peixe/detalhe/new"); }}
-                textNew="Novo"
+                onClickNew={() => { navigate("/antena/detalhe/new"); }}
+                textNew="Nova"
                 showNew={id !== "new"}
                 onClickDelete={() => { handlePopupConfirmDelete(Number(id)); }}
                 showDelete={id !== "new"}
-                onClickReturn={() => { navigate("/peixe"); }} />}>
+                onClickReturn={() => { navigate("/antena"); }} />}>
 
             <UnformForm ref={form} onSubmit={handleSave}>
                 <Box
@@ -208,67 +199,12 @@ export const PeixeDetalhe = () => {
                                 md={6}>
                                 <UnformTextField
                                     type="text"
-                                    name="pitTag"
+                                    name="nome"
                                     size="small"
-                                    label="Pit Tag"
+                                    label="Nome"
                                     disabled={loading}
                                     fullWidth
-                                    onChange={(e) => setPitTag(e.target.value)}
-                                    InputProps={{
-                                        endAdornment:
-                                            <InputAdornment
-                                                position="end">
-                                                HEX
-                                            </InputAdornment>
-                                    }} />
-                            </Grid>
-
-                            <Grid
-                                item
-                                xs={12}
-                                md={6}>
-                                <AutoCompleteNome
-                                    externalLoading={loading} />
-                            </Grid>
-
-                            <Grid
-                                item
-                                xs={12}
-                                md={6}>
-                                <UnformTextField
-                                    type="number"
-                                    name="comprimentoPadrao"
-                                    size="small"
-                                    label="Comprimento Padrão"
-                                    disabled={loading}
-                                    fullWidth
-                                    InputProps={{
-                                        endAdornment:
-                                            <InputAdornment
-                                                position="end">
-                                                CM
-                                            </InputAdornment>
-                                    }} />
-                            </Grid>
-
-                            <Grid
-                                item
-                                xs={12}
-                                md={6}>
-                                <UnformTextField
-                                    type="number"
-                                    name="comprimentoTotal"
-                                    size="small"
-                                    label="Comprimento Total"
-                                    disabled={loading}
-                                    fullWidth
-                                    InputProps={{
-                                        endAdornment:
-                                            <InputAdornment
-                                                position="end">
-                                                CM
-                                            </InputAdornment>
-                                    }} />
+                                    onChange={(e) => setNome(e.target.value)} />
                             </Grid>
 
                             <Grid
@@ -277,42 +213,9 @@ export const PeixeDetalhe = () => {
                                 md={6}>
                                 <UnformTextField
                                     type="text"
-                                    name="localCaptura"
+                                    name="dataInstalacao"
                                     size="small"
-                                    label="Local Captura"
-                                    disabled={loading}
-                                    fullWidth />
-                            </Grid>
-
-                            <Grid
-                                item
-                                xs={12}
-                                md={6}>
-                                <UnformTextField
-                                    type="number"
-                                    name="pesoSoltura"
-                                    size="small"
-                                    label="Peso na Soltura"
-                                    disabled={loading}
-                                    fullWidth
-                                    InputProps={{
-                                        endAdornment:
-                                            <InputAdornment
-                                                position="end">
-                                                KG
-                                            </InputAdornment>
-                                    }} />
-                            </Grid>
-
-                            <Grid
-                                item
-                                xs={12}
-                                md={6}>
-                                <UnformTextField
-                                    type="text"
-                                    name="dataSoltura"
-                                    size="small"
-                                    label="Data da Soltura"
+                                    label="Data de Instalação"
                                     disabled={loading}
                                     fullWidth />
                             </Grid>
@@ -323,9 +226,9 @@ export const PeixeDetalhe = () => {
                                 md={6}>
                                 <UnformTextField
                                     type="text"
-                                    name="localSoltura"
+                                    name="latitude"
                                     size="small"
-                                    label="Local da Soltura"
+                                    label="Latitude"
                                     disabled={loading}
                                     fullWidth />
                             </Grid>
@@ -336,9 +239,9 @@ export const PeixeDetalhe = () => {
                                 md={6}>
                                 <UnformTextField
                                     type="text"
-                                    name="amostraDna"
+                                    name="longitude"
                                     size="small"
-                                    label="Amostra DNA"
+                                    label="Longitude"
                                     disabled={loading}
                                     fullWidth />
                             </Grid>
@@ -348,10 +251,11 @@ export const PeixeDetalhe = () => {
                                 xs={12}
                                 md={6}>
                                 <UnformSwitch
-                                    name="recaptura"
-                                    label="Peixe Recapturado"
+                                    name="status"
+                                    label="Status da Antena"
                                     disabled={loading} />
                             </Grid>
+
                         </Grid>
                     </Grid>
                 </Box>

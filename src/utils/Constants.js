@@ -5,9 +5,14 @@ export const Constants = {
     URL: "http://localhost:3005",
 
     /**
-    * Quantidade de linhas carregadas por padrão.
+    * Quantidade de peixes carregados por padrão
     */
-    LINHAS: 2,
+    PEIXES: 10,
+
+    /**
+    * Quantidade de antenas carregadas por padrão
+    */
+    ANTENAS: 6,
 
     /**
     * Texto exibido quando nenhum registro é mostrado em uma listagem

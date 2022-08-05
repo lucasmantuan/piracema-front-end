@@ -2,7 +2,7 @@ import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import { useField } from "@unform/core";
 import { useDebounce } from "hooks";
 import { useEffect, useMemo, useState } from "react";
-import { PeixeService } from "services";
+import { AntenaService } from "services";
 
 export const AutoCompleteNome = ({ externalLoading = false }) => {
     const { debounce } = useDebounce();
@@ -15,7 +15,7 @@ export const AutoCompleteNome = ({ externalLoading = false }) => {
     useEffect(() => {
         setLocalLoading(true);
         debounce(() => {
-            PeixeService.getAll(1, nomeCientifico || busca)
+            AntenaService.getAll(1, nomeCientifico || busca)
                 .then((result) => {
                     setLocalLoading(false);
                     if (result instanceof Error) {
