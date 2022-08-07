@@ -1,7 +1,31 @@
 {
     "Antena": {
         "nome": {
-            "string": {}
+            "string": [
+                "Ponte",
+                "Ilha"
+            ]
+        },
+        "dataInstalacao": {
+            "dateTime": {
+                "min": "2020-01-01T00:00:00Z",
+                "max": "2022-07-31T00:00:00Z"
+            }
+        },
+        "latitude": {
+            "int": [
+                25.0000,
+                30.0000
+            ]
+        },
+        "longitude": {
+            "int": [
+                25.0000,
+                30.0000
+            ]
+        },
+        "isDraft": {
+            "boolean": {}
         }
     }
 }
