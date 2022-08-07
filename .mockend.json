@@ -1,5 +1,7 @@
 {
-    "Antenas": {
-      "nome": { "string": {} }
+    "User": {
+        "title": {
+            "string": {}
+        }
     }
-  }
+}
