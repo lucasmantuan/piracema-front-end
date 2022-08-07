@@ -1,7 +1,6 @@
 {
     "Antena": {
         "nome": {
-            "limit": 5,
             "string": [
                 "Ponte",
                 "Ilha"
