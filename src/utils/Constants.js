@@ -1,8 +1,8 @@
 export const Constants = {
     /**
-    * URL base para a consulta dos dados da aplicação.
+    * Endereço padrão do servidor
     */
-    URL: "http://localhost:3005",
+    URL: "https://piracema-json-server.vercel.app",
 
     /**
     * Quantidade de peixes carregados por padrão

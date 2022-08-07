@@ -122,8 +122,6 @@ export const Antena = () => {
                 marginRight={2}
                 padding={2} >
 
-                {!loading && totalRecords === 0 && (Constants.LISTAGEM)}
-
                 <Grid
                     container
                     direction="column"
@@ -136,6 +134,13 @@ export const Antena = () => {
                             xs={12}>
                             <LinearProgress
                                 variant="indeterminate" />
+                        </Grid>)}
+
+                    {!loading && totalRecords === 0 && (
+                        <Grid
+                            item
+                            xs={12}>
+                            {Constants.LISTAGEM}
                         </Grid>)}
 
                     <Grid

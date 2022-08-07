@@ -53,7 +53,6 @@ export const AntenaDetalhe = () => {
     const handleSave = (input) => {
         schema.validate(input, { abortEarly: false })
             .then((valid) => {
-                console.log(valid);
                 if (id === "new") {
                     AntenaService.create(valid)
                         .then((result) => {

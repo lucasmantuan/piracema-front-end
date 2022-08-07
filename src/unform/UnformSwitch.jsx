@@ -4,17 +4,17 @@ import { useEffect, useRef, useState } from "react";
 
 export const UnformSwitch = ({ name, ...rest }) => {
     const { fieldName, registerField, defaultValue, error, clearError } = useField(name);
-    const [value, setValue] = useState(false);
-    const element = useRef(null);
+    const [value, setValue] = useState(null);
+    // const element = useRef(null);
 
     useEffect(() => {
         registerField({
             name: fieldName,
-            ref: element.current,
-            //getValue: () => value,
-            getValue: (ref) => ref.checked,
-            //setValue: (ref, value) => setValue(value)
-            setValue: (ref, value) => { ref.checked = value; }
+            // ref: element.current,
+            getValue: () => value,
+            // getValue: (ref) => ref.checked,
+            setValue: (ref, value) => setValue(value)
+            // setValue: (ref, value) => ref.checked = value
         });
     }, [registerField, fieldName, value]);
 
@@ -23,7 +23,7 @@ export const UnformSwitch = ({ name, ...rest }) => {
             <FormControlLabel
                 {...rest}
                 control={<Switch
-                    inputRef={element}
+                    // inputRef={element}
                     checked={value}
                     onChange={(e) => {
                         setValue(e.target.checked);
