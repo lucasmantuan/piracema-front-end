@@ -1,6 +1,7 @@
 {
     "Antena": {
         "nome": {
+            "limit": 5,
             "string": [
                 "Ponte",
                 "Ilha"
@@ -24,7 +25,7 @@
                 30.0000
             ]
         },
-        "isDraft": {
+        "status": {
             "boolean": {}
         }
     }

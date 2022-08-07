@@ -2,7 +2,7 @@ export const Constants = {
     /**
     * Endereço padrão do servidor
     */
-    URL: "https://piracema-json-server.vercel.app",
+    URL: "https://mockend.com/lucasmantuan/piracema-front-end/",
 
     /**
     * Quantidade de peixes carregados por padrão
