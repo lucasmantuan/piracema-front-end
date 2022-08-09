@@ -2,7 +2,8 @@ export const Constants = {
     /**
     * Endereço padrão do servidor
     */
-    URL: "https://mockend.com/lucasmantuan/piracema-front-end/",
+    URL: "https://piracema-json-server.herokuapp.com/",
+    // URL: "http://localhost:5000/",
 
     /**
     * Quantidade de peixes carregados por padrão

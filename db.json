@@ -1,0 +1,35 @@
+{
+  "antenas": [
+    {
+      "id": 1,
+      "nome": "Ilha",
+      "dataInstalacao": "20-06-2022",
+      "latitude": -25.434955,
+      "longitude": -54.580724,
+      "status": true
+    },
+    {
+      "id": 2,
+      "nome": "Lago",
+      "dataInstalacao": "Hoje",
+      "latitude": -25.434363,
+      "longitude": -54.577202,
+      "status": false
+    }
+  ],
+  "peixes": [
+    {
+      "id": 1,
+      "pitTag": "1521FAXZ",
+      "nomeCientifico": "Nome Ciêntifico",
+      "comprimentoPadrao": 500,
+      "comprimentoTotal": 450,
+      "localCaptura": "Lago Itaipu",
+      "pesoSoltura": 200,
+      "dataSoltura": "20-06-2022",
+      "localSoltura": "Canal de Piracema",
+      "amostraDna": "24512-F-SW-KLB",
+      "recaptura": true
+    }
+  ]
+}

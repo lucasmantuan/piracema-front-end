@@ -1,6 +1,6 @@
 import { CellTowerOutlined as TowerIcon, DeleteOutlined as DeleteIcon, EditOutlined as EditIcon } from "@mui/icons-material";
 import { Box, Button, Grid, LinearProgress, Pagination, Paper, Stack, Typography } from "@mui/material";
-import { BarraRelatorio } from "components";
+import { BarraRelatorio, MapaAntenas } from "components";
 import { usePopup } from "contexts";
 import { useDebounce } from "hooks";
 import { Base } from "layout";
@@ -294,7 +294,17 @@ export const Antena = () => {
                         count={Math.ceil(totalRecords / Constants.ANTENAS)}
                         onChange={(e, page) => setSearchParams({ busca, pagina: page.toString() }, { replace: true })} />)}
 
+                {totalRecords > 0 && <Box
+                    component={Paper}
+                    elevation={0}
+                    variant="outlined"
+                    marginY={2}
+                    padding={2} >
+                    <MapaAntenas />
+                </Box>}
+
             </Box>
+
         </Base >
     );
 };

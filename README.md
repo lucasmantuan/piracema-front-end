@@ -13,3 +13,4 @@ Para acessar o projeto, visite: https://piracema.vercel.app/
 - Axios
 - Unform
 - Yup
+- API Google Maps
