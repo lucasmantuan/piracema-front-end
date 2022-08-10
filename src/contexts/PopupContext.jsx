@@ -40,7 +40,9 @@ export const PopupProvider = ({ children }) => {
         open,
         onClose }) => {
         return (
-            <Dialog open={open} onClose={onClose} >
+            <Dialog
+                open={open}
+                onClose={onClose} >
                 <DialogTitle>
                     {title}
                 </DialogTitle>
@@ -58,7 +60,10 @@ export const PopupProvider = ({ children }) => {
 
     return (
         <PopupContext.Provider
-            value={[createPopup, closePopup]}>
+            value={[
+                createPopup,
+                closePopup
+            ]}>
             {popups.map((popup, index) => {
                 return (
                     <PopupContainer

@@ -10,7 +10,6 @@ export const useMenuContext = () => {
 
 export const MenuProvider = ({ children }) => {
     const [openMenu, setOpenMenu] = useState(false);
-    
     const [optionsMenu, setOptionsMenu] = useState([]);
 
     const handleOpenMenu = useCallback(() => {
@@ -22,12 +21,13 @@ export const MenuProvider = ({ children }) => {
     }, []);
 
     return (
-        <MenuContext.Provider value={{
-            openMenu,
-            handleOpenMenu,
-            optionsMenu,
-            handleOptionsMenu
-        }}>
+        <MenuContext.Provider
+            value={{
+                openMenu,
+                handleOpenMenu,
+                optionsMenu,
+                handleOptionsMenu
+            }}>
             {children}
         </MenuContext.Provider>
     );

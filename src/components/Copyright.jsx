@@ -8,29 +8,28 @@ export const Copyright = () => {
             whiteSpace="nowrap"
             overflow="hidden"
             textOverflow="ellipsis">
-            Copyright &#169;
+            Copyright &#169; {new Date().getFullYear()}
             <Link
                 target="_blank"
                 underline="none"
                 href="http://www.lucasmantuan.com.br/"
                 paddingX={0.5}>
                 Lucas Mantuan
-            </Link >
+            </Link>
             <Link
                 target="_blank"
                 underline="none"
                 href="http://www.lucasmantuan.com.br/"
                 paddingX={0.5}>
                 Walter Beinar
-            </Link >
+            </Link>
             <Link
                 target="_blank"
                 underline="none"
                 href="http://www.lucasmantuan.com.br/"
                 paddingX={0.5}>
                 Jhoan Perez
-            </Link >
-            {new Date().getFullYear()}
-        </Typography >
+            </Link>
+        </Typography>
     );
 };

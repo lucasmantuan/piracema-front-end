@@ -36,7 +36,6 @@ export const BarraRelatorio = ({
                     </InputAdornment>
                 }} />}
 
-
             <Box
                 flex={1}
                 display="flex"
@@ -56,9 +55,8 @@ export const BarraRelatorio = ({
                         {textNew}
                     </Typography>
                 </Button>}
-
+                
             </Box>
-
         </Box>
     );
 };

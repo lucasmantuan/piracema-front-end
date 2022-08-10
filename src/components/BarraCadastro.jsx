@@ -1,4 +1,4 @@
-import { ArrowBackOutlined as ArrowBackIcon, AddOutlined as AddIcon, DeleteOutlined as DeleteIcon, SaveOutlined as SaveIcon } from "@mui/icons-material";
+import { AddOutlined as AddIcon, ArrowBackOutlined as ArrowBackIcon, DeleteOutlined as DeleteIcon, SaveOutlined as SaveIcon } from "@mui/icons-material";
 import { Box, Button, Paper, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 export const BarraCadastro = ({
@@ -109,8 +109,8 @@ export const BarraCadastro = ({
                         Voltar
                     </Typography>
                 </Button>)}
+                
             </Box>
-
         </Box>
     );
 };

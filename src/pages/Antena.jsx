@@ -1,5 +1,5 @@
 import { CellTowerOutlined as TowerIcon, DeleteOutlined as DeleteIcon, EditOutlined as EditIcon } from "@mui/icons-material";
-import { Box, Button, Grid, LinearProgress, Pagination, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, Grid, LinearProgress, Paper, Stack, Typography } from "@mui/material";
 import { BarraRelatorio, MapaAntenas } from "components";
 import { usePopup } from "contexts";
 import { useDebounce } from "hooks";
@@ -290,7 +290,7 @@ export const Antena = () => {
                     component={Paper}
                     elevation={0}
                     variant="outlined"
-                    marginY={2}
+                    marginTop={2}
                     padding={2} >
                     <MapaAntenas />
                 </Box>}

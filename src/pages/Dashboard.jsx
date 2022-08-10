@@ -22,6 +22,7 @@ export const Dashboard = () => {
                     setTotalPeixes(result.total);
                 }
             });
+
         setLoadingAntena(true);
         AntenaService.getAll(1)
             .then((result) => {
@@ -32,6 +33,7 @@ export const Dashboard = () => {
                     setTotalAntenas(result.total);
                 }
             });
+
         setLoadingPassagem(true);
         PassagemService.getAll(1)
             .then((result) => {
@@ -65,7 +67,7 @@ export const Dashboard = () => {
                         <Grid
                             item
                             xs={12}
-                            md={4}>
+                            lg={4}>
                             <Card
                                 elevation={0}
                                 variant="outlined">
@@ -80,15 +82,18 @@ export const Dashboard = () => {
                                         justifyContent="center"
                                         alignItems="center"
                                         padding={2}>
+
                                         {(loadingPeixe && (
                                             <CircularProgress />
                                         ))}
+
                                         {(!loadingPeixe && (
                                             <Typography
                                                 variant="h1">
                                                 {totalPeixes}
                                             </Typography>
                                         ))}
+
                                     </Box>
                                 </CardContent>
                             </Card>
@@ -96,7 +101,7 @@ export const Dashboard = () => {
                         <Grid
                             item
                             xs={12}
-                            md={4}>
+                            lg={4}>
                             <Card
                                 elevation={0}
                                 variant="outlined">
@@ -111,15 +116,18 @@ export const Dashboard = () => {
                                         justifyContent="center"
                                         alignItems="center"
                                         padding={2}>
+
                                         {(loadingAntena && (
                                             <CircularProgress />
                                         ))}
+
                                         {(!loadingAntena && (
                                             <Typography
                                                 variant="h1">
                                                 {totalAntenas}
                                             </Typography>
                                         ))}
+
                                     </Box>
                                 </CardContent>
                             </Card>
@@ -127,7 +135,7 @@ export const Dashboard = () => {
                         <Grid
                             item
                             xs={12}
-                            md={4}>
+                            lg={4}>
                             <Card
                                 elevation={0}
                                 variant="outlined">
@@ -142,24 +150,26 @@ export const Dashboard = () => {
                                         justifyContent="center"
                                         alignItems="center"
                                         padding={2}>
+
                                         {(loadingPassagem && (
                                             <CircularProgress />
                                         ))}
+
                                         {(!loadingPassagem && (
                                             <Typography
                                                 variant="h1">
                                                 {totalPassagens}
                                             </Typography>
                                         ))}
+
                                     </Box>
                                 </CardContent>
                             </Card>
-                        </Grid>                        
+                        </Grid>
                     </Grid>
                 </Grid>
 
             </Box>
-
 
         </Base >
     );

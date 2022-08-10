@@ -4,17 +4,16 @@ import { useDebounce } from "hooks";
 import { useEffect, useMemo, useState } from "react";
 import { AntenaService } from "services";
 import { DarkMap, LightMap } from "themes";
-
-import TowerIcon from "../images/TowerIcon.svg";
+import { TowerIcon } from "utils";
 
 const style = {
     width: "100%",
-    height: "100vh"
+    height: "80vh"
 };
 
 const center = {
-    lat: -25.432782,
-    lng: -54.581638
+    lat: -25.434604,
+    lng: -54.580265
 };
 
 export const MapaAntenas = () => {
@@ -23,6 +22,8 @@ export const MapaAntenas = () => {
     });
 
     const theme = useTheme();
+
+    console.log();
 
     const options = useMemo(() => (
         {
@@ -57,7 +58,8 @@ export const MapaAntenas = () => {
                             .map((item) => ({
                                 id: item.id,
                                 lat: item.latitude,
-                                lng: item.longitude
+                                lng: item.longitude,
+                                status: item.status
                             }))
                         );
                     }
@@ -91,10 +93,13 @@ export const MapaAntenas = () => {
             {markers.map(marker => <Marker
                 key={marker.id}
                 icon={{
-                    url: TowerIcon,
-                    scaledSize: new window.google.maps.Size(30, 30),
-                    origin: new window.google.maps.Point(0, 0),
-                    anchor: new window.google.maps.Point(15, 15)
+                    path: TowerIcon,
+                    anchor: new window.google.maps.Point(18, 16.5),
+                    scale: 0.8,
+                    fillColor: marker.status ? theme.palette.success.main : theme.palette.error.main,
+                    fillOpacity: 1,
+                    strokeColor: marker.status ? theme.palette.success.main : theme.palette.error.main,
+                    strokeOpacity: 0
                 }}
                 position={{
                     lat: marker.lat,

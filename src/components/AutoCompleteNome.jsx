@@ -2,7 +2,7 @@ import { Autocomplete, CircularProgress, TextField } from "@mui/material";
 import { useField } from "@unform/core";
 import { useDebounce } from "hooks";
 import { useEffect, useMemo, useState } from "react";
-import { AntenaService } from "services";
+import { PeixeService } from "services";
 
 export const AutoCompleteNome = ({ externalLoading = false }) => {
     const { debounce } = useDebounce();
@@ -10,12 +10,12 @@ export const AutoCompleteNome = ({ externalLoading = false }) => {
     const [options, setOptions] = useState([]);
     const [localLoading, setLocalLoading] = useState(false);
     const [busca, setBusca] = useState("");
-    const [nomeCientifico, setNomeCientifico] = useState(defaultValue);
+    const [nomeCientifico, setNomeCientifico] = useState();
 
     useEffect(() => {
         setLocalLoading(true);
         debounce(() => {
-            AntenaService.getAll(1, nomeCientifico || busca)
+            PeixeService.getAll(1, nomeCientifico || busca)
                 .then((result) => {
                     setLocalLoading(false);
                     if (result instanceof Error) {
@@ -76,7 +76,6 @@ export const AutoCompleteNome = ({ externalLoading = false }) => {
                     helperText={error}
                     label="Nome Ciêntifico" />)}
             size="small"
-            value={selectedValue}
-        />
+            value={selectedValue} />
     );
 };

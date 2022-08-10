@@ -21,9 +21,7 @@ export const MenuItem = ({ icon, path, label, onClick }) => {
             selected={!!match}
             onClick={handleClick}>
             <ListItemIcon
-                sx={{
-                    minWidth: theme.spacing(5)
-                }} >
+                sx={{ minWidth: theme.spacing(5) }} >
                 <Icon>{icon}</Icon>
             </ListItemIcon>
             <ListItemText

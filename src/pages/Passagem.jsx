@@ -1,5 +1,5 @@
 import { DeleteOutlined as DeleteIcon } from "@mui/icons-material";
-import { Box, Button, IconButton, Paper } from "@mui/material";
+import { Box, Button, IconButton, Paper, useMediaQuery, useTheme } from "@mui/material";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 import { BarraRelatorio } from "components";
 import { usePopup } from "contexts";
@@ -11,12 +11,15 @@ import { PassagemService } from "services";
 
 export const Passagem = () => {
     const navigate = useNavigate();
+    const theme = useTheme();
+    const lgDown = useMediaQuery(theme.breakpoints.down("lg"));
+    const mdDown = useMediaQuery(theme.breakpoints.down("md"));
+    const xlDown = useMediaQuery(theme.breakpoints.down("xl"));
     const { debounce } = useDebounce();
     const [searchParams, setSearchParams] = useSearchParams();
     const [createPopup, closePopup] = usePopup();
     const [loading, setLoading] = useState(true);
     const [rowsRecords, setRowsRecords] = useState([]);
-    const [totalRecords, setTotalRecords] = useState(0);
 
     const columnsRecords = [
         {
@@ -25,7 +28,8 @@ export const Passagem = () => {
             headerAlign: "center",
             align: "center",
             type: "number",
-            flex: 0.25
+            flex: 0.25,
+            hide: lgDown ? true : false,
         },
         {
             field: "pitTag",
@@ -41,23 +45,26 @@ export const Passagem = () => {
             headerAlign: "center",
             align: "center",
             type: "string",
-            flex: 1.25
+            flex: 1.25,
+            hide: mdDown ? true : false
         },
         {
             field: "comprimentoTotal",
-            headerName: "Comprimento",
+            headerName: "Comprimento Total",
             headerAlign: "center",
             align: "center",
             type: "number",
-            flex: 0.75
+            flex: 0.85,
+            hide: xlDown ? true : false
         },
         {
             field: "dataSoltura",
-            headerName: "Soltura",
+            headerName: "Data da Soltura",
             headerAlign: "center",
             align: "center",
             type: "string",
-            flex: 0.75
+            flex: 0.85,
+            hide: lgDown ? true : false
         },
         {
             field: "localSoltura",
@@ -73,11 +80,12 @@ export const Passagem = () => {
             headerAlign: "center",
             align: "center",
             type: "boolean",
-            flex: 0.75
+            flex: 0.75,
+            hide: xlDown ? true : false
         },
         {
             field: "nomeAntena",
-            headerName: "Antena",
+            headerName: "Nome da Antena",
             headerAlign: "center",
             align: "center",
             type: "string",
@@ -85,17 +93,19 @@ export const Passagem = () => {
         },
         {
             field: "dataPassagem",
-            headerName: "Passagem",
+            headerName: "Data da Passagem",
             headerAlign: "center",
             align: "center",
             type: "string",
-            flex: 0.75
+            flex: 0.85,
+            hide: lgDown ? true : false
         },
         {
             field: "excluir",
             headerName: "Excluir",
+            headerAlign: "center",
             align: "center",
-            flex: 0.5,
+            flex: 0.7,
             renderCell: (cell) => (
                 <IconButton
                     size="small"
@@ -172,7 +182,6 @@ export const Passagem = () => {
                     if (result instanceof Error) {
                         console.log(result.message);
                     } else {
-                        setTotalRecords(result.total);
                         setRowsRecords(result.data);
                     }
                 });
@@ -218,11 +227,10 @@ export const Passagem = () => {
                     columns={columnsRecords}
                     disableColumnMenu={true}
                     disableSelectionOnClick
-                    loading={false}
+                    loading={loading}
                     localeText={ptBR.components.MuiDataGrid.defaultProps.localeText}
                     rows={rowsRecords}
-                    sx={{ padding: 2 }}
-                />
+                    sx={{ padding: 2 }} />
 
             </Box>
 

@@ -175,7 +175,10 @@ export const PeixeDetalhe = () => {
                 showDelete={id !== "new"}
                 onClickReturn={() => { navigate("/peixe"); }} />}>
 
-            <UnformForm ref={form} onSubmit={handleSave}>
+            <UnformForm
+                ref={form}
+                onSubmit={handleSave}>
+
                 <Box
                     component={Paper}
                     elevation={0}
@@ -187,8 +190,8 @@ export const PeixeDetalhe = () => {
                     <Grid
                         container
                         direction="column"
-                        padding={2}
                         spacing={2}>
+
                         {(loading && (
                             <Grid
                                 item
@@ -196,6 +199,7 @@ export const PeixeDetalhe = () => {
                                 <LinearProgress
                                     variant="indeterminate" />
                             </Grid>))}
+
                         <Grid
                             container
                             item
@@ -352,9 +356,13 @@ export const PeixeDetalhe = () => {
                                     label="Peixe Recapturado"
                                     disabled={loading} />
                             </Grid>
+
                         </Grid>
+
                     </Grid>
+
                 </Box>
+                
             </UnformForm>
 
         </Base>

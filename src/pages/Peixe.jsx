@@ -1,5 +1,5 @@
 import { DeleteOutlined as DeleteIcon, EditOutlined as EditIcon, PhishingOutlined as FishIcon } from "@mui/icons-material";
-import { Box, Button, LinearProgress, Pagination, Paper, Stack, Typography } from "@mui/material";
+import { Box, Button, LinearProgress, Pagination, Paper, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { BarraRelatorio } from "components";
 import { usePopup } from "contexts";
 import { useDebounce } from "hooks";
@@ -10,6 +10,8 @@ import { PeixeService } from "services";
 import { Constants } from "utils";
 
 export const Peixe = () => {
+    const theme = useTheme();
+    const lgDown = useMediaQuery(theme.breakpoints.down("lg"));
     const navigate = useNavigate();
     const { debounce } = useDebounce();
     const [searchParams, setSearchParams] = useSearchParams();
@@ -137,7 +139,7 @@ export const Peixe = () => {
                                 elevation={0}
                                 variant="outlined"
                                 padding={2}
-                                marginBottom={2} >
+                                marginBottom={record.id === Constants.PEIXES ? 0 : 2} >
 
                                 <Typography
                                     marginBottom={0.5}
@@ -229,9 +231,10 @@ export const Peixe = () => {
 
                                 <Stack
                                     direction="row"
-                                    justifyContent="flex-end"
+                                    justifyContent={lgDown ? "flex-end" : "flex-start"}
                                     alignItems="center"
-                                    spacing={2}>
+                                    spacing={2}
+                                    marginTop={2}>
 
                                     <Button
                                         variant="outlined"
@@ -276,17 +279,20 @@ export const Peixe = () => {
                                         </Typography>
                                     </Button>
                                 </Stack>
+
                             </Box>
                         );
                     })}
 
                 {(totalRecords > 0 && totalRecords > Constants.PEIXES) &&
                     (<Pagination
-                        page={pagina}
                         count={Math.ceil(totalRecords / Constants.PEIXES)}
-                        onChange={(e, page) => setSearchParams({ busca, pagina: page.toString() }, { replace: true })} />)}
+                        onChange={(e, page) => setSearchParams({ busca, pagina: page.toString() }, { replace: true })}
+                        page={pagina}
+                        sx={{ marginTop: 2 }} />)}
 
             </Box>
+
         </Base>
     );
 };

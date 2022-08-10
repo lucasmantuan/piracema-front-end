@@ -24,17 +24,18 @@ export const Base = ({ children, barra, titulo }) => {
                     {titulo}
                 </Typography>
             </Box>
+            
             {(barra &&
                 <Box
                     marginX={2}>
                     {barra}
                 </Box>)}
+
             <Box
                 marginX={2}
                 flex={1}
                 overflow="auto">
                 {children}
-
                 <Stack
                     direction="row"
                     justifyContent="center"
@@ -42,7 +43,6 @@ export const Base = ({ children, barra, titulo }) => {
                     marginBottom={2}>
                     <Copyright />
                 </Stack>
-
             </Box>
         </Box>
     );

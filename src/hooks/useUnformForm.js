@@ -20,17 +20,17 @@ export const useUnformForm = () => {
     const isSaveNew = useCallback(() => {
         return clickSaveNew.current;
     }, []);
-    
+
     const saveReturn = useCallback(() => {
         clickSaveNew.current = false;
         clickSaveReturn.current = true;
         form.current?.submitForm();
     }, []);
-    
+
     const isSaveReturn = useCallback(() => {
         return clickSaveReturn.current;
     }, []);
-    
+
     return {
         form,
         save,

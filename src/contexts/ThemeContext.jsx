@@ -27,7 +27,10 @@ export const AppThemeProvider = ({ children }) => {
 
     return (
         <ThemeContext.Provider
-            value={{ defaultTheme, toggleTheme }}>
+            value={{
+                defaultTheme,
+                toggleTheme
+            }}>
             <ThemeProvider
                 theme={theme}>
                 <Box

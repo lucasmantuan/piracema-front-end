@@ -174,7 +174,10 @@ export const AntenaDetalhe = () => {
                 showDelete={id !== "new"}
                 onClickReturn={() => { navigate("/antena"); }} />}>
 
-            <UnformForm ref={form} onSubmit={handleSave}>
+            <UnformForm
+                ref={form}
+                onSubmit={handleSave}>
+                
                 <Box
                     component={Paper}
                     elevation={0}
@@ -186,7 +189,6 @@ export const AntenaDetalhe = () => {
                     <Grid
                         container
                         direction="column"
-                        padding={2}
                         spacing={2}>
                         {(loading && (
                             <Grid
@@ -266,9 +268,11 @@ export const AntenaDetalhe = () => {
 
                         </Grid>
                     </Grid>
-                </Box>
-            </UnformForm>
 
+                </Box>
+
+            </UnformForm>
+            
         </Base>
     );
 };

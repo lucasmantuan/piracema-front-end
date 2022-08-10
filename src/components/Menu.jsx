@@ -6,7 +6,7 @@ import { Fragment } from "react";
 
 export const Menu = ({ children }) => {
     const theme = useTheme();
-    const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+    const mdDown = useMediaQuery(theme.breakpoints.down("md"));
     const { toggleTheme } = useThemeContext();
     const { openMenu, handleOpenMenu, optionsMenu, handleOptionsMenu } = useMenuContext();
 
@@ -17,13 +17,11 @@ export const Menu = ({ children }) => {
                 sx={{ zIndex: theme.zIndex.modal }}>
                 <Toolbar
                     sx={{ height: theme.spacing(8) }}>
-                    {smDown
-                        ? <IconButton
-                            color="inherit"
-                            onClick={handleOpenMenu}>
-                            <MenuIcon />
-                        </IconButton>
-                        : ""}
+                    {mdDown && <IconButton
+                        color="inherit"
+                        onClick={handleOpenMenu}>
+                        <MenuIcon />
+                    </IconButton>}
                     <Typography
                         variant="h6"
                         component="div"
@@ -43,8 +41,9 @@ export const Menu = ({ children }) => {
                     </IconButton>
                 </Toolbar>
             </AppBar>
+
             <Drawer
-                variant={smDown
+                variant={mdDown
                     ? "temporary"
                     : "permanent"}
                 open={openMenu}
@@ -60,17 +59,18 @@ export const Menu = ({ children }) => {
                             icon={option.icon}
                             path={option.path}
                             label={option.label}
-                            onClick={smDown
+                            onClick={mdDown
                                 ? handleOpenMenu
                                 : null} />))}
                     </List>
                 </Box>
             </Drawer>
+            
             <Box
                 height="100vh"
-                marginLeft={smDown
-                    ? 0
-                    : theme.spacing(26)}
+                marginLeft={!mdDown
+                    ? theme.spacing(26)
+                    : 0}
                 paddingTop={theme.spacing(8)}>
                 {children}
             </Box>
