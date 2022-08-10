@@ -10,13 +10,13 @@ import { PeixeService } from "services";
 import { Constants } from "utils";
 
 export const Peixe = () => {
+    const navigate = useNavigate();
     const { debounce } = useDebounce();
     const [searchParams, setSearchParams] = useSearchParams();
     const [createPopup, closePopup] = usePopup();
     const [loading, setLoading] = useState(true);
     const [records, setRecords] = useState([]);
     const [totalRecords, setTotalRecords] = useState(0);
-    const navigate = useNavigate();
 
     const handlePopupConfirmDelete = (id) => {
         createPopup(

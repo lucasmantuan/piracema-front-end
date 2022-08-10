@@ -10,12 +10,12 @@ import { UnformForm, UnformSwitch, UnformTextField } from "unform";
 import { boolean as YupBoolean, number as YupNumber, object as YupObject, string as YupString } from "yup";
 
 export const PeixeDetalhe = () => {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [pitTag, setPitTag] = useState("");
     const [createPopup, closePopup] = usePopup();
     const { form, save, saveReturn, isSaveReturn } = useUnformForm();
     const { id = "new" } = useParams();
-    const navigate = useNavigate();
 
     const schema = YupObject().shape({
         pitTag: YupString().required(),

@@ -2,7 +2,7 @@ import { Api } from "./Api";
 
 const getAll = async (page = 0, filter = "") => {
     try {
-        const url = `antenas?_page=${page}&nome_like=${filter}`;
+        const url = `passagens?_page=${page}&nomeCientifico_like=${filter}`;
         const { data, headers } = await Api.get(url);
         if (data) {
             return {
@@ -18,7 +18,7 @@ const getAll = async (page = 0, filter = "") => {
 
 const getById = async (id) => {
     try {
-        const { data } = await Api.get(`/antenas/${id}`);
+        const { data } = await Api.get(`/passagens/${id}`);
         if (data) {
             return data;
         }
@@ -30,7 +30,7 @@ const getById = async (id) => {
 
 const create = async (inputs) => {
     try {
-        const { data } = await Api.post("/antenas", inputs);
+        const { data } = await Api.post("/passagens", inputs);
         if (data) {
             return data.id;
         }
@@ -42,7 +42,7 @@ const create = async (inputs) => {
 
 const updateById = async (id, inputs) => {
     try {
-        await Api.put(`/antenas/${id}`, inputs);
+        await Api.put(`/passagens/${id}`, inputs);
     } catch (error) {
         return new Error(error.message || "Erro ao Atualizar o Registro...");
     }
@@ -50,13 +50,13 @@ const updateById = async (id, inputs) => {
 
 const deleteById = async (id) => {
     try {
-        await Api.delete(`/antenas/${id}`);
+        await Api.delete(`/passagens/${id}`);
     } catch (error) {
         return new Error(error.message || "Erro ao apagar os registros...");
     }
 };
 
-export const AntenaService = {
+export const PassagemService = {
     getAll,
     getById,
     create,

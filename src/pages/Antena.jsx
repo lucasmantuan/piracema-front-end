@@ -10,19 +10,19 @@ import { AntenaService } from "services";
 import { Constants } from "utils";
 
 export const Antena = () => {
+    const navigate = useNavigate();
     const { debounce } = useDebounce();
     const [searchParams, setSearchParams] = useSearchParams();
     const [createPopup, closePopup] = usePopup();
     const [loading, setLoading] = useState(true);
     const [records, setRecords] = useState([]);
     const [totalRecords, setTotalRecords] = useState(0);
-    const navigate = useNavigate();
 
     const handlePopupConfirmDelete = (id) => {
         createPopup(
             {
                 title: "Excluir?",
-                content: "Você deseja excluir o antena?",
+                content: "Você deseja excluir a antena?",
                 onClose: closePopup,
                 actions: (
                     <Fragment>
@@ -69,7 +69,7 @@ export const Antena = () => {
     }, [searchParams]);
 
     const pagina = useMemo(() => {
-        return (Number(searchParams.get("pagina") || "1"));
+        return (Number(searchParams.get("pagina") || "0"));
     }, [searchParams]);
 
     useEffect(() => {
@@ -110,7 +110,7 @@ export const Antena = () => {
             barra={<BarraRelatorio
                 showSearch
                 textSearch={busca}
-                onChangeSearch={(value) => setSearchParams({ busca: value, pagina: "1" }, { replace: true })}
+                onChangeSearch={(value) => setSearchParams({ busca: value, pagina: "0" }, { replace: true })}
                 textNew="Nova"
                 onClickNew={() => { navigate("/antena/detalhe/new"); }} />}>
 
@@ -125,7 +125,6 @@ export const Antena = () => {
                 <Grid
                     container
                     direction="column"
-                    padding={2}
                     spacing={2}>
 
                     {loading && (
@@ -163,8 +162,7 @@ export const Antena = () => {
                                             component={Paper}
                                             elevation={0}
                                             variant="outlined"
-                                            padding={2}
-                                            marginBottom={2}>
+                                            padding={2}>
 
                                             {record.status === true
                                                 ? <TowerIcon
@@ -287,12 +285,6 @@ export const Antena = () => {
                     </Grid>
 
                 </Grid>
-
-                {(totalRecords > 0 && totalRecords > Constants.ANTENAS) &&
-                    (<Pagination
-                        page={pagina}
-                        count={Math.ceil(totalRecords / Constants.ANTENAS)}
-                        onChange={(e, page) => setSearchParams({ busca, pagina: page.toString() }, { replace: true })} />)}
 
                 {totalRecords > 0 && <Box
                     component={Paper}

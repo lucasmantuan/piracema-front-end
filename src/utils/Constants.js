@@ -8,12 +8,7 @@ export const Constants = {
     /**
     * Quantidade de peixes carregados por padrão
     */
-    PEIXES: 10,
-
-    /**
-    * Quantidade de antenas carregadas por padrão
-    */
-    ANTENAS: 6,
+    PEIXES: 5,
 
     /**
     * Texto exibido quando nenhum registro é mostrado em uma listagem

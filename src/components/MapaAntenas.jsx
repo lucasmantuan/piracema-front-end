@@ -1,16 +1,15 @@
+import { useTheme } from "@mui/material";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useDebounce } from "hooks";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AntenaService } from "services";
+import { DarkMap, LightMap } from "themes";
+
 import TowerIcon from "../images/TowerIcon.svg";
 
 const style = {
     width: "100%",
     height: "100vh"
-};
-
-const options = {
-    disableDefaultUI: true
 };
 
 const center = {
@@ -22,6 +21,15 @@ export const MapaAntenas = () => {
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
     });
+
+    const theme = useTheme();
+
+    const options = useMemo(() => (
+        {
+            disableDefaultUI: true,
+            styles: theme.palette.mode === "light" ? LightMap : DarkMap
+        }
+    ), [theme]);
 
     const [markers, setMarkers] = useState([]);
 
@@ -71,15 +79,13 @@ export const MapaAntenas = () => {
         return "Carregando o mapa...";
     }
 
-    console.log(markers);
-
-    return <div>
+    return (
         <GoogleMap
             zoom={16}
             center={center}
             options={options}
             mapContainerStyle={style}
-            // onLoad={onMapLoad}
+        // onLoad={onMapLoad}
         >
 
             {markers.map(marker => <Marker
@@ -96,5 +102,5 @@ export const MapaAntenas = () => {
                 }} />)}
 
         </GoogleMap>
-    </div>;
+    );
 };

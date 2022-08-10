@@ -10,12 +10,12 @@ import { UnformForm, UnformSwitch, UnformTextField } from "unform";
 import { boolean as YupBoolean, number as YupNumber, object as YupObject, string as YupString } from "yup";
 
 export const AntenaDetalhe = () => {
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
     const [nome, setNome] = useState("");
     const [createPopup, closePopup] = usePopup();
     const { form, save, saveReturn, isSaveReturn } = useUnformForm();
     const { id = "new" } = useParams();
-    const navigate = useNavigate();
 
     const schema = YupObject().shape({
         nome: YupString().required(),
@@ -51,6 +51,15 @@ export const AntenaDetalhe = () => {
     }, [id]);
 
     const handleSave = (input) => {
+
+        let obj1 = {
+            "nome": "Lucas",
+            "dataInstalacao": "Hoje",
+            "latitude": 123,
+            "longitude": 123,
+            "status": true
+        };
+
         schema.validate(input, { abortEarly: false })
             .then((valid) => {
                 if (id === "new") {

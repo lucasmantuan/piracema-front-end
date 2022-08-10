@@ -1,13 +1,15 @@
 import { Box, Card, CardContent, CircularProgress, Grid, Paper, Typography } from "@mui/material";
 import { Base } from "layout";
 import { useEffect, useState } from "react";
-import { AntenaService, PeixeService } from "services";
+import { AntenaService, PassagemService, PeixeService } from "services";
 
 export const Dashboard = () => {
     const [loadingPeixe, setLoadingPeixe] = useState(true);
     const [totalPeixes, setTotalPeixes] = useState(0);
     const [loadingAntena, setLoadingAntena] = useState(true);
     const [totalAntenas, setTotalAntenas] = useState(0);
+    const [loadingPassagem, setLoadingPassagem] = useState(true);
+    const [totalPassagens, setTotalPassagens] = useState(0);
 
     useEffect(() => {
         setLoadingPeixe(true);
@@ -28,6 +30,16 @@ export const Dashboard = () => {
                     console.log(result.message);
                 } else {
                     setTotalAntenas(result.total);
+                }
+            });
+        setLoadingPassagem(true);
+        PassagemService.getAll(1)
+            .then((result) => {
+                setLoadingPassagem(false);
+                if (result instanceof Error) {
+                    console.log(result.message);
+                } else {
+                    setTotalPassagens(result.total);
                 }
             });
     }, []);
@@ -53,7 +65,7 @@ export const Dashboard = () => {
                         <Grid
                             item
                             xs={12}
-                            md={6}>
+                            md={4}>
                             <Card
                                 elevation={0}
                                 variant="outlined">
@@ -84,7 +96,7 @@ export const Dashboard = () => {
                         <Grid
                             item
                             xs={12}
-                            md={6}>
+                            md={4}>
                             <Card
                                 elevation={0}
                                 variant="outlined">
@@ -112,6 +124,37 @@ export const Dashboard = () => {
                                 </CardContent>
                             </Card>
                         </Grid>
+                        <Grid
+                            item
+                            xs={12}
+                            md={4}>
+                            <Card
+                                elevation={0}
+                                variant="outlined">
+                                <CardContent>
+                                    <Typography
+                                        variant="h6"
+                                        align="center">
+                                        Passagens Cadastradas
+                                    </Typography>
+                                    <Box
+                                        display="flex"
+                                        justifyContent="center"
+                                        alignItems="center"
+                                        padding={2}>
+                                        {(loadingPassagem && (
+                                            <CircularProgress />
+                                        ))}
+                                        {(!loadingPassagem && (
+                                            <Typography
+                                                variant="h1">
+                                                {totalPassagens}
+                                            </Typography>
+                                        ))}
+                                    </Box>
+                                </CardContent>
+                            </Card>
+                        </Grid>                        
                     </Grid>
                 </Grid>
 
