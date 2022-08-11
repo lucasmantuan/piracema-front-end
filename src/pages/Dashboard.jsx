@@ -84,7 +84,7 @@ export const Dashboard = () => {
                                         padding={2}>
 
                                         {(loadingPeixe && (
-                                            <CircularProgress />
+                                            <CircularProgress size={22} />
                                         ))}
 
                                         {(!loadingPeixe && (
@@ -118,7 +118,7 @@ export const Dashboard = () => {
                                         padding={2}>
 
                                         {(loadingAntena && (
-                                            <CircularProgress />
+                                            <CircularProgress size={22} />
                                         ))}
 
                                         {(!loadingAntena && (
@@ -152,7 +152,7 @@ export const Dashboard = () => {
                                         padding={2}>
 
                                         {(loadingPassagem && (
-                                            <CircularProgress />
+                                            <CircularProgress size={22} />
                                         ))}
 
                                         {(!loadingPassagem && (

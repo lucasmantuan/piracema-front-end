@@ -288,14 +288,16 @@ export const Antena = () => {
 
                 </Grid>
 
-                {totalRecords > 0 && <Box
+                <Box
                     component={Paper}
                     elevation={0}
                     variant="outlined"
                     marginTop={2}
                     padding={2} >
+
                     <MapaAntenas />
-                </Box>}
+
+                </Box>
 
             </Box>
 

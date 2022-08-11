@@ -1,4 +1,4 @@
-import { useTheme } from "@mui/material";
+import { LinearProgress, useTheme } from "@mui/material";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { useDebounce } from "hooks";
 import { useEffect, useMemo, useState } from "react";
@@ -6,24 +6,15 @@ import { AntenaService } from "services";
 import { DarkMap, LightMap } from "themes";
 import { TowerIcon } from "utils";
 
-const style = {
-    width: "100%",
-    height: "80vh"
-};
-
-const center = {
-    lat: -25.434604,
-    lng: -54.580265
-};
-
 export const MapaAntenas = () => {
+    const [loading, setLoading] = useState(true);
+    const [markers, setMarkers] = useState([]);
+    const { debounce } = useDebounce();
+    const theme = useTheme();
+
     const { isLoaded, loadError } = useLoadScript({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY
     });
-
-    const theme = useTheme();
-
-    console.log();
 
     const options = useMemo(() => (
         {
@@ -32,18 +23,19 @@ export const MapaAntenas = () => {
         }
     ), [theme]);
 
-    const [markers, setMarkers] = useState([]);
+    const style = useMemo(() => (
+        {
+            width: "100%",
+            height: "80vh"
+        }
+    ), []);
 
-    // const onMapClick = useCallback((event) => {
-    //     setMarkers((item) => [...item, {
-    //         lat: event.latLng.lat(),
-    //         lng: event.latLng.lng(),
-    //         time: new Date()
-    //     }]);
-    // }, []);
-
-    const { debounce } = useDebounce();
-    const [loading, setLoading] = useState(true);
+    const center = useMemo(() => (
+        {
+            lat: -25.434604,
+            lng: -54.580265
+        }
+    ), []);
 
     useEffect(() => {
         setLoading(true);
@@ -55,30 +47,31 @@ export const MapaAntenas = () => {
                         console.log(result.message);
                     } else {
                         setMarkers(result.data
-                            .map((item) => ({
-                                id: item.id,
-                                lat: item.latitude,
-                                lng: item.longitude,
-                                status: item.status
-                            }))
-                        );
+                            .map(item => <Marker
+                                key={item.id}
+                                icon={{
+                                    path: TowerIcon,
+                                    anchor: new window.google.maps.Point(18, 16.5),
+                                    scale: 0.8,
+                                    fillColor: item.status ? theme.palette.success.main : theme.palette.error.main,
+                                    fillOpacity: 1,
+                                    strokeColor: item.status ? theme.palette.success.main : theme.palette.error.main,
+                                    strokeOpacity: 0
+                                }}
+                                position={{
+                                    lat: item.latitude,
+                                    lng: item.longitude
+                                }} />));
                     }
                 });
         });
     }, []);
 
-    // const mapRef = useRef();
-
-    // const onMapLoad = useCallback((map) => {
-    //     mapRef.current = map;
-    // }, []);
-
-    if (loadError) {
-        return "Erro ao carregar o mapa...";
-    }
-
-    if (!isLoaded) {
-        return "Carregando o mapa...";
+    if (!isLoaded || loadError) {
+        return (
+            <LinearProgress
+                variant="indeterminate" />
+        );
     }
 
     return (
@@ -86,25 +79,9 @@ export const MapaAntenas = () => {
             zoom={16}
             center={center}
             options={options}
-            mapContainerStyle={style}
-        // onLoad={onMapLoad}
-        >
+            mapContainerStyle={style}>
 
-            {markers.map(marker => <Marker
-                key={marker.id}
-                icon={{
-                    path: TowerIcon,
-                    anchor: new window.google.maps.Point(18, 16.5),
-                    scale: 0.8,
-                    fillColor: marker.status ? theme.palette.success.main : theme.palette.error.main,
-                    fillOpacity: 1,
-                    strokeColor: marker.status ? theme.palette.success.main : theme.palette.error.main,
-                    strokeOpacity: 0
-                }}
-                position={{
-                    lat: marker.lat,
-                    lng: marker.lng
-                }} />)}
+            {!loading && markers}
 
         </GoogleMap>
     );
