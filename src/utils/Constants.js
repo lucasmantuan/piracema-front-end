@@ -13,10 +13,5 @@ export const Constants = {
     /**
     * Texto exibido quando nenhum registro é mostrado em uma listagem
     */
-    LISTAGEM: "Nenhum Registro Encontrado...",
-
-    /**
-    * Texto para o label dos inputs de procura
-    */
-    PROCURAR: "Procurar...",
+    LISTAGEM: "Nenhum Registro Encontrado..."
 };

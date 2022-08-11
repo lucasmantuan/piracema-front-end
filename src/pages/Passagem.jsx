@@ -1,4 +1,4 @@
-import { DeleteOutlined as DeleteIcon } from "@mui/icons-material";
+import { DeleteOutlined as DeleteIcon, UploadFileOutlined as UploadIcon } from "@mui/icons-material";
 import { Box, Button, IconButton, Paper, useMediaQuery, useTheme } from "@mui/material";
 import { DataGrid, ptBR } from "@mui/x-data-grid";
 import { BarraRelatorio } from "components";
@@ -211,8 +211,9 @@ export const Passagem = () => {
                 showSearch
                 textSearch={busca}
                 onChangeSearch={(value) => setSearchParams({ busca: value, pagina: "0" }, { replace: true })}
-                textNew="Nova"
-                onClickNew={() => { navigate("/passagem/detalhe/new"); }} />}>
+                labelSearch="Nome Ciêntifico"
+                textAux="Importar CSV"
+                iconAux={<UploadIcon />}/>}>
 
             <Box
                 component={Paper}

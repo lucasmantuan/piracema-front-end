@@ -1,4 +1,4 @@
-import { CellTowerOutlined as TowerIcon, DeleteOutlined as DeleteIcon, EditOutlined as EditIcon } from "@mui/icons-material";
+import { AddOutlined as AddIcon, CellTowerOutlined as TowerIcon, DeleteOutlined as DeleteIcon, EditOutlined as EditIcon } from "@mui/icons-material";
 import { Box, Button, Grid, LinearProgress, Paper, Stack, Typography } from "@mui/material";
 import { BarraRelatorio, MapaAntenas } from "components";
 import { usePopup } from "contexts";
@@ -111,8 +111,10 @@ export const Antena = () => {
                 showSearch
                 textSearch={busca}
                 onChangeSearch={(value) => setSearchParams({ busca: value, pagina: "0" }, { replace: true })}
-                textNew="Nova"
-                onClickNew={() => { navigate("/antena/detalhe/new"); }} />}>
+                labelSearch="Antena"
+                textAux="Nova"
+                iconAux={<AddIcon />}
+                onClickAux={() => { navigate("/antena/detalhe/new"); }} />}>
 
             <Box
                 component={Paper}

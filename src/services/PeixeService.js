@@ -3,7 +3,7 @@ import { Api } from "./Api";
 
 const getAll = async (page = 1, filter = "") => {
     try {
-        const url = `peixes?_page=${page}&_limit=${Constants.PEIXES}&nomeCientifico_like=${filter}`;
+        const url = `peixes?_page=${page}&_limit=${Constants.PEIXES}&pitTag_like=${filter}`;
         const { data, headers } = await Api.get(url);
         if (data) {
             return {

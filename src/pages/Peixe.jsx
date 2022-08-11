@@ -1,4 +1,4 @@
-import { DeleteOutlined as DeleteIcon, EditOutlined as EditIcon, PhishingOutlined as FishIcon } from "@mui/icons-material";
+import { AddOutlined as AddIcon, DeleteOutlined as DeleteIcon, EditOutlined as EditIcon, PhishingOutlined as FishIcon } from "@mui/icons-material";
 import { Box, Button, LinearProgress, Pagination, Paper, Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { BarraRelatorio } from "components";
 import { usePopup } from "contexts";
@@ -66,12 +66,12 @@ export const Peixe = () => {
             });
     };
 
-    const busca = useMemo(() => {
-        return (searchParams.get("busca") || "");
-    }, [searchParams]);
-
     const pagina = useMemo(() => {
         return (Number(searchParams.get("pagina") || "1"));
+    }, [searchParams]);
+
+    const busca = useMemo(() => {
+        return (searchParams.get("busca") || "");
     }, [searchParams]);
 
     useEffect(() => {
@@ -88,7 +88,7 @@ export const Peixe = () => {
                     }
                 });
         });
-    }, [busca, pagina]);
+    }, [pagina, busca]);
 
     const handleDelete = (id) => {
         PeixeService.deleteById(id)
@@ -112,9 +112,11 @@ export const Peixe = () => {
             barra={<BarraRelatorio
                 showSearch
                 textSearch={busca}
-                onChangeSearch={(value) => setSearchParams({ busca: value, pagina: "1" }, { replace: true })}
-                textNew="Novo"
-                onClickNew={() => { navigate("/peixe/detalhe/new"); }} />}>
+                onChangeSearch={(value) => setSearchParams({ pagina: "1", busca: value }, { replace: true })}
+                labelSearch="PitTag"
+                textAux="Novo"
+                iconAux={<AddIcon />}
+                onClickAux={() => { navigate("/peixe/detalhe/new"); }} />}>
 
             <Box
                 component={Paper}
@@ -266,18 +268,6 @@ export const Peixe = () => {
                                         </Typography>
                                     </Button>
 
-                                    <Button
-                                        variant="outlined"
-                                        size="small"
-                                        startIcon={<FishIcon />}>
-                                        <Typography
-                                            variant="button"
-                                            whiteSpace="nowrap"
-                                            textOverflow="ellipsis"
-                                            overflow="hidden">
-                                            Recaptura
-                                        </Typography>
-                                    </Button>
                                 </Stack>
 
                             </Box>
