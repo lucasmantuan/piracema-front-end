@@ -212,7 +212,7 @@ export const Passagem = () => {
                 textSearch={busca}
                 onChangeSearch={(value) => setSearchParams({ busca: value, pagina: "0" }, { replace: true })}
                 labelSearch="Nome Ciêntifico"
-                textAux="Importar CSV"
+                textAux="CSV"
                 iconAux={<UploadIcon />}/>}>
 
             <Box
