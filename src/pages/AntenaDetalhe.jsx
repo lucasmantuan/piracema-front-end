@@ -69,6 +69,7 @@ export const AntenaDetalhe = () => {
                             if (result instanceof Error) {
                                 // Dialog
                             } else {
+                                handlePopupOkSave();
                                 if (isSaveReturn()) {
                                     navigate("/antena");
                                 } else {
@@ -83,6 +84,7 @@ export const AntenaDetalhe = () => {
                             if (result instanceof Error) {
                                 // Dialog
                             } else {
+                                handlePopupOkSave();
                                 if (isSaveReturn()) {
                                     navigate("/antena");
                                 }
@@ -134,6 +136,25 @@ export const AntenaDetalhe = () => {
             {
                 title: "Excluida",
                 content: "Antena excluida com sucesso!",
+                actions: (
+                    <Fragment>
+                        <Button
+                            onClick={() => {
+                                closePopup();
+                            }}
+                            autoFocus>
+                            Fechar
+                        </Button>
+                    </Fragment>
+                )
+            });
+    };
+
+    const handlePopupOkSave = () => {
+        createPopup(
+            {
+                title: "Salvo",
+                content: "Antena salva com sucesso!",
                 actions: (
                     <Fragment>
                         <Button

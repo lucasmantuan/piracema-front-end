@@ -1,5 +1,5 @@
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 
 const PopupContext = createContext([]);
 
@@ -12,13 +12,16 @@ export const usePopup = () => {
 export const PopupProvider = ({ children }) => {
     const [popups, setPopups] = useState([]);
 
-    const createPopup = (option) => {
+    const createPopup = useCallback((option) => {
         const popup = { ...option, open: true };
-        setPopups((popups) => [...popups, popup]);
-    };
+        // setPopups((popups) => [...popups, popup]);
+        setPopups(() => [...popups, popup]);
+    }, []);
 
-    const closePopup = () => {
-        setPopups((popups) => {
+
+    const closePopup = useCallback(() => {
+        // setPopups((popups) => {
+        setPopups(() => {
             const latestPopup = popups.pop();
 
             if (!latestPopup) {
@@ -31,7 +34,7 @@ export const PopupProvider = ({ children }) => {
 
             return [...popups].concat({ ...latestPopup, open: false });
         });
-    };
+    }, []);
 
     const PopupContainer = ({
         title,

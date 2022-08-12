@@ -37,7 +37,7 @@
             "dataSoltura": "20-06-2020",
             "localSoltura": "Canal de Piracema",
             "amostraDna": "24512-F-SW-KLB",
-            "recaptura": false
+            "recaptura": true
         },
         {
             "id": 2,

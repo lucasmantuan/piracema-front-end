@@ -70,6 +70,7 @@ export const PeixeDetalhe = () => {
                             if (result instanceof Error) {
                                 // Dialog
                             } else {
+                                handlePopupOkSave();
                                 if (isSaveReturn()) {
                                     navigate("/peixe");
                                 } else {
@@ -84,6 +85,7 @@ export const PeixeDetalhe = () => {
                             if (result instanceof Error) {
                                 // Dialog
                             } else {
+                                handlePopupOkSave();
                                 if (isSaveReturn()) {
                                     navigate("/peixe");
                                 }
@@ -135,6 +137,25 @@ export const PeixeDetalhe = () => {
             {
                 title: "Excluido",
                 content: "Peixe excluido com sucesso!",
+                actions: (
+                    <Fragment>
+                        <Button
+                            onClick={() => {
+                                closePopup();
+                            }}
+                            autoFocus>
+                            Fechar
+                        </Button>
+                    </Fragment>
+                )
+            });
+    };
+
+    const handlePopupOkSave = () => {
+        createPopup(
+            {
+                title: "Salvo",
+                content: "Peixe salvo com sucesso!",
                 actions: (
                     <Fragment>
                         <Button
