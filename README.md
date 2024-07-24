@@ -1,16 +1,3 @@
-# Projeto Piracema
+# Piracema Frontend
 
-Projeto desenvolvido no Bootcampo Programa de Talentos em Tecnologia da Informação e Comunicação do Parque Tecnológico da Itaipu (PTI).
-
-Para acessar o projeto, visite: https://piracema.vercel.app/
-
-## Tecnologias Utilizadas
-
-- React
-- MUI
-- React Router
-- JSON Server
-- Axios
-- Unform
-- Yup
-- API Google Maps
+Projeto desenvolvido no Bootcamp do Programa de Talentos em TIC do Parque Tecnológico de Itaipu (PTI), consistindo na criação de uma plataforma de monitoramento de peixes, incluindo o desenvolvimento tanto do backend quanto do frontend.
