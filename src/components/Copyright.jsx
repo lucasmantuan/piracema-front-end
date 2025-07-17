@@ -17,7 +17,7 @@ export const Copyright = () => {
                 variant="caption"
                 href="http://www.lucasmantuan.com.br/"
                 paddingX={0.5}>
-                 Lucas Mantuan - Walter Beinar - Jhoan Perez 
+                 Lucas Mantuan
             </Link>
             
             {new Date().getFullYear()}
